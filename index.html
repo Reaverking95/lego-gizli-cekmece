@@ -92,4 +92,132 @@ body {
 .card {
   background: rgba(255, 255, 255, 0.97);
   border-radius: 24px;
-  padding: 32
+  padding: 32px 28px 34px;
+  max-width: 560px;   /* daha geniş kart */
+  width: 100%;
+  max-height: 90vh;   /* çok uzun metinde taşmasın diye */
+  overflow-y: auto;   /* metin uzarsa içinde scroll olsun */
+  box-shadow:
+    0 26px 60px rgba(15, 23, 42, 0.24),
+    0 0 0 1px rgba(148, 163, 184, 0.3);
+  text-align: center;
+}
+
+/* METİN */
+.icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  letter-spacing: 0.03em;
+}
+
+.line {
+  width: 80px;
+  height: 2px;
+  margin: 12px auto 20px;
+  background: linear-gradient(90deg, #fb7185, #fbbf24);
+  border-radius: 999px;
+}
+
+p {
+  font-size: 15.5px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+p.centered {
+  text-align: center;
+}
+
+.signature {
+  margin-top: 16px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.heart {
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+.note {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 20 FOTOĞRAFLI ARKA PLAN DEMOSU -->
+<div class="collage">
+  <img src="https://picsum.photos/500/720?random=1"   alt="" class="ph1" />
+  <img src="https://picsum.photos/700/450?random=2"   alt="" class="ph2" />
+  <img src="https://picsum.photos/800/520?random=3"   alt="" class="ph3" />
+  <img src="https://picsum.photos/480/700?random=4"   alt="" class="ph4" />
+  <img src="https://picsum.photos/420/560?random=5"   alt="" class="ph5" />
+  <img src="https://picsum.photos/520/740?random=6"   alt="" class="ph6" />
+  <img src="https://picsum.photos/460/640?random=7"   alt="" class="ph7" />
+  <img src="https://picsum.photos/720/480?random=8"   alt="" class="ph8" />
+  <img src="https://picsum.photos/520/760?random=9"   alt="" class="ph9" />
+  <img src="https://picsum.photos/700/460?random=10"  alt="" class="ph10" />
+  <img src="https://picsum.photos/480/720?random=11"  alt="" class="ph11" />
+  <img src="https://picsum.photos/420/600?random=12"  alt="" class="ph12" />
+  <img src="https://picsum.photos/420/600?random=13"  alt="" class="ph13" />
+  <img src="https://picsum.photos/400/560?random=14"  alt="" class="ph14" />
+  <img src="https://picsum.photos/400/560?random=15"  alt="" class="ph15" />
+  <img src="https://picsum.photos/400/560?random=16"  alt="" class="ph16" />
+  <img src="https://picsum.photos/380/540?random=17"  alt="" class="ph17" />
+  <img src="https://picsum.photos/380/540?random=18"  alt="" class="ph18" />
+  <img src="https://picsum.photos/420/300?random=19"  alt="" class="ph19" />
+  <img src="https://picsum.photos/420/300?random=20"  alt="" class="ph20" />
+</div>
+
+<!-- ORTADAKİ NOT – UZUN PARAGRAF İÇİN HAZIR -->
+<div class="content">
+  <main class="card">
+    <div class="icon">🔐</div>
+    <h1>Bizim Küçük Sırrımız</h1>
+    <div class="line"></div>
+
+    <!-- BURAYI İSTEDİĞİN KADAR UZATABİLİRSİN -->
+    <p>
+      Eğer bu sayfayı görüyorsan, LEGO kutunun içindeki
+      gizli çekmeceyi bulmuşsun demektir. Belki bu sadece küçücük bir
+      detay gibi görünüyor, ama ben senin için bu küçük detayın içine
+      koca bir dünya sığdırmak istedim. Bu satırları okurken, aklına
+      birlikte güldüğümüz, saçma şeylere tartışıp yine de sarılıp
+      barıştığımız, sadece yan yana sessizce oturduğumuz anlar gelsin.
+    </p>
+
+    <p>
+      Hayat bazen çok hızlı, çok gürültülü ve fazla yorucu olabiliyor.
+      İşte bu sayfa, o hızlı anların içinde sadece bir anlığına durup,
+      “evet, biri beni gerçekten düşünüp uğraşmış” diyeceğin küçük bir
+      mola olsun istedim. Belki ileride bu satırları yıllar sonra
+      tekrar açıp okursun; belki de sadece bugün, bu an için varlar.
+      Ama ne olursa olsun, şu anda bu kelimelerin arkasında çok gerçek
+      ve çok içten bir sevgi olduğunu bilmeni istiyorum.
+    </p>
+
+    <p class="centered signature">
+      Sevgilerle,<br />
+      <strong>Ali Yağız İyilikci</strong>
+    </p>
+
+    <div class="heart">❤️</div>
+
+    <div class="note">
+      Bu sayfa, sadece ikimizin bildiği küçük bir sır olarak kalsın.
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
