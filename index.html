@@ -15,13 +15,13 @@
 
 body {
   min-height: 100vh;
-  background: #e3e7ff;
+  background: #dde3ff;
   color: #111827;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
 }
 
-/* KOLAJ ARKA PLAN – TÜM SAYFAYI DOLDURAN */
+/* ARKA PLAN KOLAJI – 20 FOTOĞRAF */
 .collage {
   position: fixed;
   inset: 0;
@@ -29,7 +29,7 @@ body {
   pointer-events: none;
 }
 
-/* Tüm fotoğrafların ortak stili */
+/* Ortak foto stil */
 .collage img {
   position: absolute;
   object-fit: cover;
@@ -38,37 +38,47 @@ body {
   opacity: 0.32;
 }
 
-/* Farklı boyut + konum + açı – SAYFAYI DOLDURUR */
-.ph1  { width: 260px; height: 360px; top: 4%;  left: 4%;  transform: rotate(-6deg); }
-.ph2  { width: 220px; height: 150px; top: 6%;  left: 34%; transform: rotate(3deg);  }
-.ph3  { width: 260px; height: 180px; top: 6%;  right: 4%; transform: rotate(-4deg); }
+/* Farklı boyut + konum + açı – ekranı doldurur */
+.ph1  { width: 240px; height: 340px; top: 3%;  left: 3%;  transform: rotate(-6deg); }
+.ph2  { width: 220px; height: 150px; top: 6%;  left: 28%; transform: rotate(4deg);  }
+.ph3  { width: 260px; height: 180px; top: 4%;  right: 5%; transform: rotate(-5deg); }
 
-.ph4  { width: 200px; height: 290px; top: 26%; left: 1%;  transform: rotate(4deg);  }
-.ph5  { width: 180px; height: 240px; top: 25%; left: 24%; transform: rotate(-3deg); }
-.ph6  { width: 210px; height: 300px; top: 23%; right: 24%; transform: rotate(5deg); }
-.ph7  { width: 190px; height: 260px; top: 26%; right: 2%;  transform: rotate(-5deg); }
+.ph4  { width: 200px; height: 280px; top: 22%; left: 2%;  transform: rotate(5deg);  }
+.ph5  { width: 180px; height: 240px; top: 20%; left: 20%; transform: rotate(-3deg); }
+.ph6  { width: 210px; height: 300px; top: 19%; right: 24%; transform: rotate(4deg); }
+.ph7  { width: 190px; height: 260px; top: 22%; right: 2%;  transform: rotate(-5deg); }
 
-.ph8  { width: 260px; height: 180px; bottom: 18%; left: 6%;  transform: rotate(-2deg); }
-.ph9  { width: 220px; height: 320px; bottom: 10%; left: 30%; transform: rotate(3deg);  }
-.ph10 { width: 230px; height: 170px; bottom: 18%; right: 28%; transform: rotate(-3deg); }
-.ph11 { width: 210px; height: 290px; bottom: 8%;  right: 4%;  transform: rotate(4deg); }
+.ph8  { width: 260px; height: 180px; top: 46%; left: 5%;  transform: rotate(-2deg); }
+.ph9  { width: 230px; height: 160px; top: 44%; right: 7%; transform: rotate(3deg);  }
 
-.ph12 { width: 150px; height: 210px; top: 50%; left: 14%; transform: rotate(-2deg); }
-.ph13 { width: 150px; height: 210px; top: 50%; right: 14%; transform: rotate(2deg);  }
+.ph10 { width: 220px; height: 320px; bottom: 6%; left: 4%;  transform: rotate(3deg);  }
+.ph11 { width: 230px; height: 170px; bottom: 16%; left: 26%; transform: rotate(-3deg); }
+.ph12 { width: 220px; height: 320px; bottom: 7%; right: 5%; transform: rotate(-4deg); }
 
-.ph14 { width: 140px; height: 190px; top: 10%; left: 52%; transform: rotate(-4deg); }
-.ph15 { width: 140px; height: 190px; bottom: 8%; left: 52%; transform: rotate(4deg);  }
+.ph13 { width: 150px; height: 210px; top: 34%; left: 45%; transform: rotate(-2deg); }
+.ph14 { width: 150px; height: 210px; top: 34%; right: 45%; transform: rotate(2deg); }
 
-/* Küçük ekranda biraz sadeleştir, ama yine dolu kalsın */
+.ph15 { width: 140px; height: 190px; top: 10%; left: 52%; transform: rotate(-4deg); }
+.ph16 { width: 140px; height: 190px; bottom: 8%; left: 52%; transform: rotate(4deg);  }
+
+.ph17 { width: 130px; height: 180px; top: 55%; left: 12%; transform: rotate(3deg);  }
+.ph18 { width: 130px; height: 180px; top: 55%; right: 12%; transform: rotate(-3deg); }
+
+.ph19 { width: 160px; height: 110px; bottom: 4%; left: 40%; transform: rotate(-2deg); }
+.ph20 { width: 160px; height: 110px; top: 4%;    right: 40%; transform: rotate(2deg); }
+
+/* Küçük ekranda biraz sadeleştir ama yine dolu kalsın */
 @media (max-width: 600px) {
-  .collage img { opacity: 0.22; }
+  .collage img {
+    opacity: 0.22;
+  }
 
-  .ph2, .ph4, .ph7, .ph8, .ph10, .ph12, .ph15 {
+  .ph2, .ph4, .ph7, .ph11, .ph14, .ph16, .ph18, .ph19 {
     display: none;
   }
 }
 
-/* ORTADAKİ KART (YAZI KISMI) */
+/* ORTA KART – UZUN PARAGRAF İÇİN BÜYÜK VERSİYON */
 .content {
   position: relative;
   z-index: 1;
@@ -76,118 +86,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 24px 16px;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 22px;
-  padding: 26px 26px 28px;
-  max-width: 420px;
-  width: 100%;
-  box-shadow:
-    0 24px 50px rgba(15, 23, 42, 0.22),
-    0 0 0 1px rgba(148, 163, 184, 0.28);
-  text-align: center;
-}
-
-/* METİN */
-.icon {
-  font-size: 38px;
-  margin-bottom: 8px;
-}
-
-h1 {
-  font-size: 24px;
-  margin-bottom: 8px;
-  letter-spacing: 0.02em;
-}
-
-.line {
-  width: 72px;
-  height: 2px;
-  margin: 10px auto 18px;
-  background: linear-gradient(90deg, #fb7185, #fbbf24);
-  border-radius: 999px;
-}
-
-p {
-  font-size: 15px;
-  line-height: 1.65;
-  margin-bottom: 12px;
-}
-
-.signature {
-  margin-top: 14px;
-  font-size: 14px;
-  opacity: 0.85;
-}
-
-.heart {
-  font-size: 20px;
-  margin-top: 6px;
-}
-
-.note {
-  font-size: 11px;
-  opacity: 0.6;
-  margin-top: 14px;
-}
-</style>
-</head>
-
-<body>
-
-<!-- KOLAJ – TÜM SAYFAYI KAPLAYAN DEMO -->
-<div class="collage">
-  <img src="https://picsum.photos/500/750?random=1"   alt="" class="ph1" />
-  <img src="https://picsum.photos/700/450?random=2"   alt="" class="ph2" />
-  <img src="httpsum.photos/800/500?random=3"          alt="" class="ph3" />
-  <img src="https://picsum.photos/480/700?random=4"   alt="" class="ph4" />
-  <img src="https://picsum.photos/420/560?random=5"   alt="" class="ph5" />
-  <img src="https://picsum.photos/500/720?random=6"   alt="" class="ph6" />
-  <img src="https://picsum.photos/460/640?random=7"   alt="" class="ph7" />
-  <img src="https://picsum.photos/720/480?random=8"   alt="" class="ph8" />
-  <img src="https://picsum.photos/520/760?random=9"   alt="" class="ph9" />
-  <img src="https://picsum.photos/700/460?random=10"  alt="" class="ph10" />
-  <img src="https://picsum.photos/480/700?random=11"  alt="" class="ph11" />
-  <img src="https://picsum.photos/420/600?random=12"  alt="" class="ph12" />
-  <img src="https://picsum.photos/420/600?random=13"  alt="" class="ph13" />
-  <img src="https://picsum.photos/400/560?random=14"  alt="" class="ph14" />
-  <img src="https://picsum.photos/400/560?random=15"  alt="" class="ph15" />
-</div>
-
-<!-- ORTADAKİ NOT -->
-<div class="content">
-  <main class="card">
-    <div class="icon">🔐</div>
-    <h1>Bizim Küçük Sırrımız</h1>
-    <div class="line"></div>
-
-    <p>
-      Eğer bu sayfayı görüyorsan,
-      LEGO kutunun içindeki <strong>gizli çekmeceyi</strong>
-      keşfetmişsin demektir.
-    </p>
-
-    <p>
-      Bu sayfa, birlikte biriktirdiğimiz anların
-      sessiz ama kalıcı bir hatırası.
-    </p>
-
-    <p class="signature">
-      Sevgilerle,<br />
-      <strong>Ali Yağız İyilikci</strong>
-    </p>
-
-    <div class="heart">❤️</div>
-
-    <div class="note">
-      Bu sayfa sadece ikimize ait.
-    </div>
-  </main>
-</div>
-
-</body>
-</html>
-
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 24px;
+  padding: 32
