@@ -15,13 +15,13 @@
 
 body {
   min-height: 100vh;
-  background: #e9edff;
+  background: #e3e7ff;
   color: #111827;
   overflow: hidden;
   position: relative;
 }
 
-/* KOLAJ ARKA PLAN */
+/* KOLAJ ARKA PLAN – TÜM SAYFAYI DOLDURAN */
 .collage {
   position: fixed;
   inset: 0;
@@ -29,7 +29,7 @@ body {
   pointer-events: none;
 }
 
-/* Tüm fotoğraflar ortak stil */
+/* Tüm fotoğrafların ortak stili */
 .collage img {
   position: absolute;
   object-fit: cover;
@@ -38,99 +38,37 @@ body {
   opacity: 0.32;
 }
 
-/* Farklı boyut ve konumlar (dikey & yatay, farklı alanlar) */
-.ph1 {
-  width: 210px;
-  height: 320px;  /* dikey */
-  top: 8%;
-  left: 6%;
-  transform: rotate(-6deg);
-}
+/* Farklı boyut + konum + açı – SAYFAYI DOLDURUR */
+.ph1  { width: 260px; height: 360px; top: 4%;  left: 4%;  transform: rotate(-6deg); }
+.ph2  { width: 220px; height: 150px; top: 6%;  left: 34%; transform: rotate(3deg);  }
+.ph3  { width: 260px; height: 180px; top: 6%;  right: 4%; transform: rotate(-4deg); }
 
-.ph2 {
-  width: 260px;
-  height: 170px;  /* yatay */
-  top: 12%;
-  right: 8%;
-  transform: rotate(4deg);
-}
+.ph4  { width: 200px; height: 290px; top: 26%; left: 1%;  transform: rotate(4deg);  }
+.ph5  { width: 180px; height: 240px; top: 25%; left: 24%; transform: rotate(-3deg); }
+.ph6  { width: 210px; height: 300px; top: 23%; right: 24%; transform: rotate(5deg); }
+.ph7  { width: 190px; height: 260px; top: 26%; right: 2%;  transform: rotate(-5deg); }
 
-.ph3 {
-  width: 190px;
-  height: 280px;  /* dikey */
-  bottom: 10%;
-  left: 14%;
-  transform: rotate(3deg);
-}
+.ph8  { width: 260px; height: 180px; bottom: 18%; left: 6%;  transform: rotate(-2deg); }
+.ph9  { width: 220px; height: 320px; bottom: 10%; left: 30%; transform: rotate(3deg);  }
+.ph10 { width: 230px; height: 170px; bottom: 18%; right: 28%; transform: rotate(-3deg); }
+.ph11 { width: 210px; height: 290px; bottom: 8%;  right: 4%;  transform: rotate(4deg); }
 
-.ph4 {
-  width: 230px;
-  height: 150px;  /* yatay */
-  bottom: 14%;
-  right: 12%;
-  transform: rotate(-5deg);
-}
+.ph12 { width: 150px; height: 210px; top: 50%; left: 14%; transform: rotate(-2deg); }
+.ph13 { width: 150px; height: 210px; top: 50%; right: 14%; transform: rotate(2deg);  }
 
-.ph5 {
-  width: 180px;
-  height: 230px;  /* dikey */
-  top: 55%;
-  left: 2%;
-  transform: rotate(-2deg);
-}
+.ph14 { width: 140px; height: 190px; top: 10%; left: 52%; transform: rotate(-4deg); }
+.ph15 { width: 140px; height: 190px; bottom: 8%; left: 52%; transform: rotate(4deg);  }
 
-.ph6 {
-  width: 180px;
-  height: 230px;  /* dikey */
-  top: 55%;
-  right: 4%;
-  transform: rotate(2deg);
-}
-
-.ph7 {
-  width: 150px;
-  height: 200px;
-  top: 4%;
-  left: 40%;
-  transform: rotate(-3deg);
-}
-
-.ph8 {
-  width: 160px;
-  height: 110px;
-  bottom: 4%;
-  left: 42%;
-  transform: rotate(4deg);
-}
-
-.ph9 {
-  width: 140px;
-  height: 190px;
-  top: 30%;
-  left: 0;
-  transform: rotate(5deg);
-}
-
-.ph10 {
-  width: 140px;
-  height: 190px;
-  top: 30%;
-  right: 0;
-  transform: rotate(-4deg);
-}
-
-/* Küçük ekranlarda sadeleştir */
+/* Küçük ekranda biraz sadeleştir, ama yine dolu kalsın */
 @media (max-width: 600px) {
-  .collage img {
-    opacity: 0.22;
-  }
+  .collage img { opacity: 0.22; }
 
-  .ph5, .ph6, .ph7, .ph8, .ph9, .ph10 {
+  .ph2, .ph4, .ph7, .ph8, .ph10, .ph12, .ph15 {
     display: none;
   }
 }
 
-/* ORTA KART (YAZI) */
+/* ORTADAKİ KART (YAZI KISMI) */
 .content {
   position: relative;
   z-index: 1;
@@ -142,7 +80,7 @@ body {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.96);
   border-radius: 22px;
   padding: 26px 26px 28px;
   max-width: 420px;
@@ -200,18 +138,23 @@ p {
 
 <body>
 
-<!-- POLAROID KOLAJ DEMO -->
+<!-- KOLAJ – TÜM SAYFAYI KAPLAYAN DEMO -->
 <div class="collage">
-  <img src="https://picsum.photos/500/750?random=1"  alt="" class="ph1">
-  <img src="https://picsum.photos/800/500?random=2"  alt="" class="ph2">
-  <img src="https://picsum.photos/500/750?random=3"  alt="" class="ph3">
-  <img src="https://picsum.photos/700/450?random=4"  alt="" class="ph4">
-  <img src="https://picsum.photos/450/650?random=5"  alt="" class="ph5">
-  <img src="https://picsum.photos/450/650?random=6"  alt="" class="ph6">
-  <img src="https://picsum.photos/450/650?random=7"  alt="" class="ph7">
-  <img src="https://picsum.photos/700/450?random=8"  alt="" class="ph8">
-  <img src="https://picsum.photos/450/650?random=9"  alt="" class="ph9">
-  <img src="https://picsum.photos/450/650?random=10" alt="" class="ph10">
+  <img src="https://picsum.photos/500/750?random=1"   alt="" class="ph1" />
+  <img src="https://picsum.photos/700/450?random=2"   alt="" class="ph2" />
+  <img src="httpsum.photos/800/500?random=3"          alt="" class="ph3" />
+  <img src="https://picsum.photos/480/700?random=4"   alt="" class="ph4" />
+  <img src="https://picsum.photos/420/560?random=5"   alt="" class="ph5" />
+  <img src="https://picsum.photos/500/720?random=6"   alt="" class="ph6" />
+  <img src="https://picsum.photos/460/640?random=7"   alt="" class="ph7" />
+  <img src="https://picsum.photos/720/480?random=8"   alt="" class="ph8" />
+  <img src="https://picsum.photos/520/760?random=9"   alt="" class="ph9" />
+  <img src="https://picsum.photos/700/460?random=10"  alt="" class="ph10" />
+  <img src="https://picsum.photos/480/700?random=11"  alt="" class="ph11" />
+  <img src="https://picsum.photos/420/600?random=12"  alt="" class="ph12" />
+  <img src="https://picsum.photos/420/600?random=13"  alt="" class="ph13" />
+  <img src="https://picsum.photos/400/560?random=14"  alt="" class="ph14" />
+  <img src="https://picsum.photos/400/560?random=15"  alt="" class="ph15" />
 </div>
 
 <!-- ORTADAKİ NOT -->
@@ -247,3 +190,4 @@ p {
 
 </body>
 </html>
+
