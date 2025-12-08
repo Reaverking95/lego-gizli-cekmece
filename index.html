@@ -31,23 +31,41 @@
         0 24px 50px rgba(15, 23, 42, 0.18),
         0 0 0 1px rgba(148, 163, 184, 0.25);
       text-align: center;
+      animation: fadeInUp 0.9s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .icon {
       font-size: 38px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     h1 {
       font-size: 24px;
-      margin-bottom: 12px;
+      margin-bottom: 4px;
       letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      opacity: 0.7;
+      margin-bottom: 10px;
     }
 
     .line {
       width: 72px;
       height: 2px;
-      margin: 12px auto 20px;
+      margin: 10px auto 18px;
       background: linear-gradient(90deg, #fb7185, #fbbf24);
       border-radius: 999px;
     }
@@ -66,21 +84,58 @@
 
     .heart {
       display: inline-block;
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 20px;
       animation: pulse 1.4s infinite;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
+      50% { transform: scale(1.12); }
       100% { transform: scale(1); }
     }
 
     .note {
-      margin-top: 18px;
+      margin-top: 16px;
       font-size: 11px;
       opacity: 0.6;
+    }
+
+    /* Gizli ekstra mesaj bölümü */
+    .secret-section {
+      margin-top: 18px;
+      font-size: 13px;
+    }
+
+    .secret-toggle {
+      display: none;
+    }
+
+    .secret-label {
+      cursor: pointer;
+      font-size: 13px;
+      opacity: 0.75;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .secret-label:hover {
+      opacity: 1;
+    }
+
+    .secret-text {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .secret-toggle:checked + .secret-label + .secret-text {
+      max-height: 200px;
+      opacity: 1;
     }
   </style>
 </head>
@@ -88,6 +143,7 @@
   <main class="card">
     <div class="icon">🔐</div>
     <h1>Bizim Küçük Sırrımız</h1>
+    <div class="subtitle">Bu sayfa, sadece senin bulabileceğin bir not.</div>
     <div class="line"></div>
 
     <p>
@@ -105,6 +161,17 @@
       ve kalpten gelen bir sevginin sessiz bir hatırası.
       Ne zaman istersen buraya dön.
     </p>
+
+    <div class="secret-section">
+      <input type="checkbox" id="secret-toggle" class="secret-toggle" />
+      <label for="secret-toggle" class="secret-label">
+        Belki de söylemek istediğim küçük bir şey daha vardır...
+      </label>
+      <div class="secret-text">
+        Bazen kelimeler yetmiyor ama bil ki, aklıma güzel bir anı geldiğinde,
+        orada mutlaka sen de varsın.
+      </div>
+    </div>
 
     <p class="signature">
       Sevgilerle,<br />
