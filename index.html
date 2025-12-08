@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bizim Küçük Sırrımız – Demo</title>
 
 <style>
@@ -15,70 +15,141 @@
 
 body {
   min-height: 100vh;
-  background: #eef1ff;
-  color: #1f2937;
-  overflow-x: hidden;
+  background: #e9edff;
+  color: #111827;
+  overflow: hidden;
+  position: relative;
 }
 
-/* FOTOĞRAF DUVARI – DEMO */
-.wall {
+/* KOLAJ ARKA PLAN */
+.collage {
   position: fixed;
   inset: 0;
   z-index: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 18px;
-  padding: 24px;
-  opacity: 0.28;
+  pointer-events: none;
 }
 
-.wall img {
-  width: 100%;
-  height: 160px;
+/* Tüm fotoğraflar ortak stil */
+.collage img {
+  position: absolute;
   object-fit: cover;
-  border-radius: 16px;
-  box-shadow: 0 14px 30px rgba(15,23,42,0.35);
-  transition: transform 0.4s ease;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
+  opacity: 0.32;
 }
 
-/* hafif dağınıklık hissi */
-.wall img:nth-child(odd) {
-  transform: rotate(-3deg);
+/* Farklı boyut ve konumlar (dikey & yatay, farklı alanlar) */
+.ph1 {
+  width: 210px;
+  height: 320px;  /* dikey */
+  top: 8%;
+  left: 6%;
+  transform: rotate(-6deg);
 }
-.wall img:nth-child(even) {
+
+.ph2 {
+  width: 260px;
+  height: 170px;  /* yatay */
+  top: 12%;
+  right: 8%;
+  transform: rotate(4deg);
+}
+
+.ph3 {
+  width: 190px;
+  height: 280px;  /* dikey */
+  bottom: 10%;
+  left: 14%;
   transform: rotate(3deg);
 }
-.wall img:nth-child(3n) {
-  transform: rotate(-1.5deg);
+
+.ph4 {
+  width: 230px;
+  height: 150px;  /* yatay */
+  bottom: 14%;
+  right: 12%;
+  transform: rotate(-5deg);
 }
 
-/* MOBİLDE SADELEŞTİR */
-@media (max-width: 480px) {
-  .wall {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    opacity: 0.2;
+.ph5 {
+  width: 180px;
+  height: 230px;  /* dikey */
+  top: 55%;
+  left: 2%;
+  transform: rotate(-2deg);
+}
+
+.ph6 {
+  width: 180px;
+  height: 230px;  /* dikey */
+  top: 55%;
+  right: 4%;
+  transform: rotate(2deg);
+}
+
+.ph7 {
+  width: 150px;
+  height: 200px;
+  top: 4%;
+  left: 40%;
+  transform: rotate(-3deg);
+}
+
+.ph8 {
+  width: 160px;
+  height: 110px;
+  bottom: 4%;
+  left: 42%;
+  transform: rotate(4deg);
+}
+
+.ph9 {
+  width: 140px;
+  height: 190px;
+  top: 30%;
+  left: 0;
+  transform: rotate(5deg);
+}
+
+.ph10 {
+  width: 140px;
+  height: 190px;
+  top: 30%;
+  right: 0;
+  transform: rotate(-4deg);
+}
+
+/* Küçük ekranlarda sadeleştir */
+@media (max-width: 600px) {
+  .collage img {
+    opacity: 0.22;
+  }
+
+  .ph5, .ph6, .ph7, .ph8, .ph9, .ph10 {
+    display: none;
   }
 }
 
-/* ÖNDEKİ KART */
-.wrapper {
+/* ORTA KART (YAZI) */
+.content {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 1;
+  padding: 16px;
 }
 
 .card {
-  background: rgba(255,255,255,0.96);
+  background: rgba(255, 255, 255, 0.97);
   border-radius: 22px;
-  padding: 28px 28px 30px;
+  padding: 26px 26px 28px;
   max-width: 420px;
   width: 100%;
   box-shadow:
-    0 24px 50px rgba(15,23,42,0.18),
-    0 0 0 1px rgba(148,163,184,0.25);
+    0 24px 50px rgba(15, 23, 42, 0.22),
+    0 0 0 1px rgba(148, 163, 184, 0.28);
   text-align: center;
 }
 
@@ -90,7 +161,8 @@ body {
 
 h1 {
   font-size: 24px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
 }
 
 .line {
@@ -128,27 +200,22 @@ p {
 
 <body>
 
-<!-- FOTOĞRAF DUVARI – RANDOM DEMO -->
-<div class="wall">
-  <img src="https://picsum.photos/400/600?random=1" alt="">
-  <img src="https://picsum.photos/400/600?random=2" alt="">
-  <img src="https://picsum.photos/400/600?random=3" alt="">
-  <img src="https://picsum.photos/400/600?random=4" alt="">
-  <img src="https://picsum.photos/400/600?random=5" alt="">
-  <img src="https://picsum.photos/400/600?random=6" alt="">
-  <img src="https://picsum.photos/400/600?random=7" alt="">
-  <img src="https://picsum.photos/400/600?random=8" alt="">
-  <img src="https://picsum.photos/400/600?random=9" alt="">
-  <img src="https://picsum.photos/400/600?random=10" alt="">
-  <img src="https://picsum.photos/400/600?random=11" alt="">
-  <img src="https://picsum.photos/400/600?random=12" alt="">
-  <img src="https://picsum.photos/400/600?random=13" alt="">
-  <img src="https://picsum.photos/400/600?random=14" alt="">
-  <img src="https://picsum.photos/400/600?random=15" alt="">
+<!-- POLAROID KOLAJ DEMO -->
+<div class="collage">
+  <img src="https://picsum.photos/500/750?random=1"  alt="" class="ph1">
+  <img src="https://picsum.photos/800/500?random=2"  alt="" class="ph2">
+  <img src="https://picsum.photos/500/750?random=3"  alt="" class="ph3">
+  <img src="https://picsum.photos/700/450?random=4"  alt="" class="ph4">
+  <img src="https://picsum.photos/450/650?random=5"  alt="" class="ph5">
+  <img src="https://picsum.photos/450/650?random=6"  alt="" class="ph6">
+  <img src="https://picsum.photos/450/650?random=7"  alt="" class="ph7">
+  <img src="https://picsum.photos/700/450?random=8"  alt="" class="ph8">
+  <img src="https://picsum.photos/450/650?random=9"  alt="" class="ph9">
+  <img src="https://picsum.photos/450/650?random=10" alt="" class="ph10">
 </div>
 
-<!-- ÖN KART -->
-<div class="wrapper">
+<!-- ORTADAKİ NOT -->
+<div class="content">
   <main class="card">
     <div class="icon">🔐</div>
     <h1>Bizim Küçük Sırrımız</h1>
@@ -161,4 +228,22 @@ p {
     </p>
 
     <p>
-      Bu sayfa, birlikte biriktirdiğimi
+      Bu sayfa, birlikte biriktirdiğimiz anların
+      sessiz ama kalıcı bir hatırası.
+    </p>
+
+    <p class="signature">
+      Sevgilerle,<br />
+      <strong>Ali Yağız İyilikci</strong>
+    </p>
+
+    <div class="heart">❤️</div>
+
+    <div class="note">
+      Bu sayfa sadece ikimize ait.
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
