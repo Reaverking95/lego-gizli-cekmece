@@ -12,27 +12,24 @@
 
 body{
   margin:0;
-  height:100vh;
+  min-height:100vh;
   background:#e1ddd6;
   font-family:'Libre Baskerville',serif;
-  overflow:hidden;
+  /* SCROLL AÇIK */
 }
 
 /* ---------- PHOTOS GRID ---------- */
 .photos{
-  position:fixed;
-  inset:0;
+  width:100%;
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  grid-template-rows:repeat(4,1fr);
   gap:24px;
   padding:40px;
-  z-index:0;
 }
 
 .photos img{
   width:100%;
-  height:100%;
+  aspect-ratio:4/3;
   object-fit:cover;
   filter:grayscale(100%) brightness(.9);
   padding:10px;
@@ -48,16 +45,12 @@ body{
 
 /* ---------- LETTER ---------- */
 .wrapper{
-  position:fixed;
-  inset:0;
   display:flex;
   justify-content:center;
-  align-items:center;
-  pointer-events:none;
+  padding:120px 0;
 }
 
 .letter{
-  pointer-events:auto;
   width:760px;
   max-width:90%;
   padding:110px 90px 140px;
@@ -135,9 +128,8 @@ body{
 @media(max-width:768px){
   .photos{
     grid-template-columns:repeat(3,1fr);
-    grid-template-rows:repeat(8,1fr);
-    gap:18px;
     padding:20px;
+    gap:18px;
   }
 
   .letter{
@@ -181,7 +173,7 @@ const letter=document.getElementById("letter");
 const wrapper=document.getElementById("wrapper");
 const btn=document.getElementById("btn");
 
-// FOTOĞRAFLAR
+// FOTOĞRAFLAR (24 ADET)
 for(let i=1;i<=24;i++){
   const img=document.createElement("img");
   img.src=`${i}.jpg`;
@@ -189,7 +181,7 @@ for(let i=1;i<=24;i++){
   photos.appendChild(img);
 }
 
-// FOTOĞRAF ANİMASYONU BİTSİN → MEKTUP GELSİN
+// FOTOĞRAFLAR BİTSİN → MEKTUP GELSİN (AYNI SÜRE)
 setTimeout(()=>{
   letter.classList.add("show");
 }, 24*100 + 600);
