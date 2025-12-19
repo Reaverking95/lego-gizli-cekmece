@@ -18,39 +18,50 @@ body{
   overflow-x:hidden;
 }
 
-/* ---------------- BACKGROUND PHOTOS ---------------- */
+/* ---------- PHOTOS (HER ZAMAN GÖRÜNÜR) ---------- */
 .photos{
   position:fixed;
   inset:0;
   z-index:-1;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-  gap:50px;
-  padding:70px;
 }
 
 .photos img{
-  width:100%;
-  height:220px;
+  position:absolute;
+  width:280px;
+  height:200px;
   object-fit:cover;
-  filter:grayscale(100%) brightness(.92);
+  filter:grayscale(100%) brightness(.9);
   padding:14px;
   background:#f3efe7;
   box-shadow:0 18px 40px rgba(0,0,0,.35);
   opacity:0;
-  transform:translateY(18px);
-  animation:photoFade 1.4s ease forwards;
+  animation:photoFade 1.6s ease forwards;
 }
 
-.photos img.large{
-  height:320px;
+/* büyük olanlar */
+.photos img.big{
+  width:360px;
+  height:260px;
 }
+
+/* konumlar – üst üste yok */
+.photos img:nth-child(1){top:5%;left:5%;animation-delay:.2s}
+.photos img:nth-child(2){top:8%;right:6%;animation-delay:.4s}
+.photos img:nth-child(3){top:28%;left:4%;animation-delay:.6s}
+.photos img:nth-child(4){top:32%;right:5%;animation-delay:.8s}
+.photos img:nth-child(5){top:55%;left:6%;animation-delay:1s}
+.photos img:nth-child(6){top:58%;right:8%;animation-delay:1.2s}
+.photos img:nth-child(7){bottom:6%;left:30%;animation-delay:1.4s}
+.photos img:nth-child(8){top:18%;left:34%;animation-delay:1.6s}
+.photos img:nth-child(9){top:18%;right:32%;animation-delay:1.8s}
+.photos img:nth-child(10){bottom:18%;right:30%;animation-delay:2s}
+/* geri kalanlar otomatik dağılır */
 
 @keyframes photoFade{
   to{opacity:.75;transform:none}
 }
 
-/* ---------------- LETTER ---------------- */
+/* ---------- LETTER ---------- */
 .wrapper{
   display:flex;
   justify-content:center;
@@ -63,7 +74,7 @@ body{
   padding:110px 90px 140px;
   background:url("grunge-background.jpg") center/cover no-repeat;
   text-align:center;
-  color:#1f1b14;
+  color:#1f1b15;
 
   box-shadow:
     0 40px 90px rgba(0,0,0,.35),
@@ -74,21 +85,13 @@ body{
     95% 100%,4% 99%,0% 95%,1% 5%
   );
 
-  opacity:0;
-  transform:translateY(30px);
-  animation:letterIn 1.6s ease forwards;
-  animation-delay:1.8s;
-
   transition:
     opacity 1.4s ease,
     transform 1.4s ease,
     filter 1.4s ease;
 }
 
-@keyframes letterIn{
-  to{opacity:.85;transform:none}
-}
-
+/* BUTONA BASILINCA */
 .letter.hide{
   opacity:0;
   transform:translateY(60px);
@@ -96,19 +99,6 @@ body{
   pointer-events:none;
 }
 
-.letter::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(
-    ellipse at center,
-    rgba(255,255,255,.20),
-    rgba(0,0,0,.12)
-  );
-  pointer-events:none;
-}
-
-/* ---------------- TEXT ---------------- */
 .title{
   font-family:'Cinzel Decorative',serif;
   letter-spacing:.18em;
@@ -120,7 +110,7 @@ body{
   font-size:17px;
   line-height:1.9;
   margin-bottom:54px;
-  text-shadow:0 .8px 0 rgba(0,0,0,.4);
+  text-shadow:0 .6px 0 rgba(0,0,0,.35);
 }
 
 .divider{
@@ -135,43 +125,32 @@ body{
   font-size:38px;
 }
 
-/* ---------------- BUTTON ---------------- */
+/* ---------- BUTTON ---------- */
 .reveal-btn{
   margin-top:60px;
   background:transparent;
   border:1px solid rgba(0,0,0,.45);
-  padding:14px 30px;
+  padding:14px 28px;
   font-family:'Libre Baskerville',serif;
   font-size:14px;
   cursor:pointer;
-  transition:.3s;
 }
 
 .reveal-btn:hover{
   background:rgba(0,0,0,.05);
 }
 
-/* ---------------- MOBILE ---------------- */
+/* ---------- MOBILE ---------- */
 @media(max-width:768px){
-  .photos{gap:35px;padding:40px}
   .letter{padding:80px 40px 110px}
+  .photos img{width:220px;height:160px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="photos">
-  <script>
-    for(let i=1;i<=24;i++){
-      document.write(
-        `<img src="${i}.jpg"
-         class="${i===12||i===15?'large':''}"
-         style="animation-delay:${i*0.12}s">`
-      );
-    }
-  </script>
-</div>
+<div class="photos" id="photos"></div>
 
 <div class="wrapper">
   <div class="letter" id="letter">
@@ -191,12 +170,31 @@ body{
     <div class="divider"></div>
     <div class="signature">Ali Yağız İyilikci</div>
 
-    <button class="reveal-btn"
-      onclick="document.getElementById('letter').classList.add('hide')">
+    <button class="reveal-btn" id="revealBtn">
       Tüm fotoğrafları görmek ister misin?
     </button>
   </div>
 </div>
+
+<script>
+const photos = document.getElementById("photos");
+const letter = document.getElementById("letter");
+const btn = document.getElementById("revealBtn");
+
+for(let i=1;i<=24;i++){
+  const img=document.createElement("img");
+  img.src=`${i}.jpg`;
+
+  if(i===12 || i===15) img.classList.add("big");
+
+  img.style.animationDelay=`${i*0.15}s`;
+  photos.appendChild(img);
+}
+
+btn.addEventListener("click",()=>{
+  letter.classList.add("hide");
+});
+</script>
 
 </body>
 </html>
