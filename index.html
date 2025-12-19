@@ -63,8 +63,10 @@ body {
   width: min(760px, 90%);
   padding: 110px 90px 140px;
   background: url("grunge-background.jpg") center/cover no-repeat;
-  color: #3a2f23;
+  color: #2a241d; /* darker text */
   text-align: center;
+
+  opacity: 0.88; /* letter more faded */
 
   box-shadow:
     0 40px 90px rgba(0,0,0,0.35),
@@ -75,7 +77,6 @@ body {
     95% 100%, 4% 99%, 0% 95%, 1% 5%
   );
 
-  opacity: 0;
   transform: translateY(30px);
   animation: letterReveal 1.6s ease forwards;
   animation-delay: 2.8s;
@@ -83,7 +84,7 @@ body {
 
 @keyframes letterReveal {
   to {
-    opacity: 1;
+    opacity: 0.88;
     transform: translateY(0);
   }
 }
@@ -95,19 +96,21 @@ body {
   font-size: 26px;
   opacity: 0.85;
   margin-bottom: 70px;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.25);
 }
 
 .letter p {
   font-size: 17px;
   line-height: 1.9;
   margin-bottom: 54px;
+  text-shadow: 0 0.6px 0 rgba(0,0,0,0.25);
 }
 
 /* divider before signature */
 .divider {
   width: 240px;
   height: 2px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.45);
   margin: 80px auto 30px;
 }
 
@@ -116,6 +119,7 @@ body {
   font-family: 'Great Vibes', cursive;
   font-size: 36px;
   opacity: 0;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
   animation: signatureFade 2s ease forwards;
   animation-delay: 4.8s;
 }
@@ -174,3 +178,4 @@ body {
 
 </body>
 </html>
+
