@@ -139,6 +139,22 @@ body{
   .letter{
     padding:80px 40px 110px;
   }
+  @media (max-width: 768px) {
+  .reveal-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(243, 239, 231, 0.95);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  }
+
+  .letter.hide .reveal-btn {
+    display: none;
+  }
+}
 }
 </style>
 </head>
