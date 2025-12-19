@@ -168,3 +168,59 @@
     <img src="img6.jpg">
     <img src="img7.jpg">
     <img src="img8.jpg">
+    <img src="img9.jpg">
+    <img src="img10.jpg">
+    <img src="img11.jpg">
+    <img src="img12.jpg">
+  </div>
+  <div class="background-overlay"></div>
+
+  <!-- LETTER -->
+  <div class="letter-wrapper">
+    <div class="letter">
+
+      <p>
+        If you are reading this, it means you found that little drawer.
+        This page was not made in a hurry.
+        It was written slowly, thoughtfully, and only for you.
+      </p>
+
+      <p>
+        Life moves fast sometimes.
+        Days pass, moments slip away.
+        I wanted this letter to be a small pause inside all that movement.
+        A quiet place to stop, breathe, and smile.
+      </p>
+
+      <p>
+        Not everything has to be perfect.
+        But some things are meant to be special.
+        This is one of them.
+      </p>
+
+      <p class="signature">
+        With love,<br>
+        Ali Yağız İyilikci
+      </p>
+
+    </div>
+  </div>
+
+  <!-- SIGNATURE FADE -->
+  <script>
+    const signature = document.querySelector('.signature');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          signature.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.6 });
+
+    observer.observe(signature);
+  </script>
+
+</body>
+</html>
+
