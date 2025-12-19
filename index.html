@@ -14,35 +14,31 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Cormorant Garamond', serif;
-  background: #9a7f55;
+  background: #8c734e;
   overflow-x: hidden;
 }
 
-/* ==== BACKGROUND PHOTOS ==== */
+/* BACKGROUND PHOTOS */
 .photo-layer {
   position: fixed;
   inset: 0;
   z-index: -2;
 }
-
 .photo-layer img {
   position: absolute;
   width: 420px;
   height: 300px;
   object-fit: cover;
-  filter: grayscale(100%) sepia(45%) brightness(0.75) blur(1.2px);
+  filter: grayscale(100%) sepia(40%) brightness(0.75) blur(1.2px);
   opacity: 0.55;
   padding: 14px;
   background: #3a2d1f;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.15),
-    0 14px 34px rgba(0,0,0,0.45);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
 }
-
-.photo-layer img:nth-child(1) { top: 6%; left: 8%; transform: rotate(-6deg); }
-.photo-layer img:nth-child(2) { top: 10%; right: 10%; transform: rotate(5deg); }
-.photo-layer img:nth-child(3) { bottom: 18%; left: 12%; transform: rotate(4deg); }
-.photo-layer img:nth-child(4) { bottom: 14%; right: 8%; transform: rotate(-5deg); }
+.photo-layer img:nth-child(1){top:6%;left:8%;transform:rotate(-6deg)}
+.photo-layer img:nth-child(2){top:10%;right:10%;transform:rotate(5deg)}
+.photo-layer img:nth-child(3){bottom:18%;left:12%;transform:rotate(4deg)}
+.photo-layer img:nth-child(4){bottom:14%;right:8%;transform:rotate(-5deg)}
 
 .background-overlay {
   position: fixed;
@@ -51,7 +47,7 @@ body {
   z-index: -1;
 }
 
-/* ==== LETTER ==== */
+/* WRAPPER */
 .wrapper {
   min-height: 100vh;
   display: flex;
@@ -60,27 +56,20 @@ body {
   padding: 120px 16px;
 }
 
+/* LETTER BASE */
 .letter {
   position: relative;
   max-width: 760px;
   width: 100%;
   padding: 96px 88px 110px;
 
-  /* 🔥 TEMEL RENK (checkerboard öldürücü) */
-  background-color: #f4e3b8;
-
-  /* GERÇEK DOKU */
-  background-image:
-    url("paper-texture.avif"),
-    radial-gradient(
-      ellipse at center,
-      rgba(255,255,255,0.9) 0%,
-      rgba(245,225,180,0.95) 55%,
-      rgba(210,160,80,0.9) 100%
-    );
-
-  background-size: cover, cover;
-  background-blend-mode: multiply;
+  /* KESİN TABAN */
+  background: radial-gradient(
+    ellipse at center,
+    #fff9ec 0%,
+    #f5e4b8 55%,
+    #ddb26f 100%
+  );
 
   color: #2a1e12;
   text-align: center;
@@ -89,7 +78,6 @@ body {
     0 50px 140px rgba(0,0,0,0.45),
     inset 0 0 120px rgba(180,130,60,0.35);
 
-  /* ORGANİK KENAR */
   clip-path: polygon(
     2% 0%, 98% 1%,
     100% 98%, 3% 100%,
@@ -97,7 +85,19 @@ body {
   );
 }
 
-/* KENAR YANIKLARI – SARI/HARDAL */
+/* PAPER TEXTURE OVERLAY (THE KEY FIX) */
+.letter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("paper-texture.avif");
+  background-size: cover;
+  opacity: 0.85;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* AGED EDGES */
 .letter::after {
   content: "";
   position: absolute;
@@ -155,9 +155,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .letter {
-    padding: 64px 38px 74px;
-  }
+  .letter { padding: 64px 38px 74px; }
   .title { font-size: 26px; }
   .letter p { font-size: 16.5px; }
   .signature { font-size: 28px; }
