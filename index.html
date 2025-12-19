@@ -15,7 +15,6 @@ body{
   min-height:100vh;
   background:#e1ddd6;
   font-family:'Libre Baskerville',serif;
-  /* SCROLL AÇIK */
 }
 
 /* ---------- PHOTOS GRID ---------- */
@@ -43,14 +42,19 @@ body{
   to{opacity:.75}
 }
 
-/* ---------- LETTER ---------- */
+/* ---------- LETTER (AYNI EKRAN, ÜSTTE) ---------- */
 .wrapper{
+  position:fixed;
+  inset:0;
   display:flex;
   justify-content:center;
-  padding:120px 0;
+  align-items:center;
+  pointer-events:none;
+  z-index:5;
 }
 
 .letter{
+  pointer-events:auto;
   width:760px;
   max-width:90%;
   padding:110px 90px 140px;
@@ -141,8 +145,10 @@ body{
 
 <body>
 
+<!-- FOTOĞRAFLAR (ARKA PLAN SAHNESİ) -->
 <div class="photos" id="photos"></div>
 
+<!-- MEKTUP (AYNI EKRANIN ÜZERİNDE) -->
 <div class="wrapper" id="wrapper">
   <div class="letter" id="letter">
     <div class="title">A LETTER KEPT IN TIME</div>
@@ -173,7 +179,7 @@ const letter=document.getElementById("letter");
 const wrapper=document.getElementById("wrapper");
 const btn=document.getElementById("btn");
 
-// FOTOĞRAFLAR (24 ADET)
+/* FOTOĞRAFLAR */
 for(let i=1;i<=24;i++){
   const img=document.createElement("img");
   img.src=`${i}.jpg`;
@@ -181,12 +187,12 @@ for(let i=1;i<=24;i++){
   photos.appendChild(img);
 }
 
-// FOTOĞRAFLAR BİTSİN → MEKTUP GELSİN (AYNI SÜRE)
+/* FOTOĞRAFLAR BİTSİN → MEKTUP GELSİN */
 setTimeout(()=>{
   letter.classList.add("show");
 }, 24*100 + 600);
 
-// BUTON
+/* BUTON */
 btn.addEventListener("click",()=>{
   letter.classList.add("hide");
   setTimeout(()=>{
