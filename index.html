@@ -36,13 +36,14 @@ body{
   box-shadow:0 14px 30px rgba(0,0,0,.35);
   opacity:0;
   animation:photoFade 1.4s ease forwards;
+  cursor:pointer;
 }
 
 @keyframes photoFade{
   to{opacity:.75}
 }
 
-/* ---------- LETTER (AYNI EKRAN, ÜSTTE) ---------- */
+/* ---------- LETTER (OVER PHOTOS) ---------- */
 .wrapper{
   position:fixed;
   inset:0;
@@ -128,29 +129,50 @@ body{
   cursor:pointer;
 }
 
-/* ---------- MOBILE ---------- */
-@media(max-width:768px){
+/* ---------- MOBILE FIX ---------- */
+@media (max-width:768px){
   .photos{
     grid-template-columns:repeat(3,1fr);
     padding:20px;
     gap:18px;
   }
 
-  .letter{
-    padding:80px 40px 110px;
-  }
- @media (max-width: 768px) {
-  .wrapper {
-    align-items: flex-start; /* mektup üstten başlasın */
+  .wrapper{
+    align-items:flex-start;
   }
 
-  .letter {
-    max-height: 90vh;        /* ekranın %90’ı kadar */
-    overflow-y: auto;        /* İÇTEN SCROLL */
-    -webkit-overflow-scrolling: touch;
+  .letter{
+    padding:80px 40px 110px;
+    max-height:90vh;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
   }
 }
+
+/* ---------- LIGHTBOX ---------- */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .4s ease;
+  z-index:20;
 }
+
+.lightbox.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.lightbox img{
+  max-width:90vw;
+  max-height:90vh;
+  object-fit:contain;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
 }
 </style>
 </head>
@@ -183,31 +205,52 @@ body{
   </div>
 </div>
 
-<script>
-const photos=document.getElementById("photos");
-const letter=document.getElementById("letter");
-const wrapper=document.getElementById("wrapper");
-const btn=document.getElementById("btn");
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" src="">
+</div>
 
-/* FOTOĞRAFLAR */
+<script>
+const photos = document.getElementById("photos");
+const letter = document.getElementById("letter");
+const wrapper = document.getElementById("wrapper");
+const btn = document.getElementById("btn");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+
+let letterGone = false;
+
+/* LOAD PHOTOS */
 for(let i=1;i<=24;i++){
   const img=document.createElement("img");
   img.src=`${i}.jpg`;
   img.style.animationDelay=`${i*0.14}s`;
+
+  img.addEventListener("click",()=>{
+    if(!letterGone) return;
+    lightboxImg.src = img.src;
+    lightbox.classList.add("show");
+  });
+
   photos.appendChild(img);
 }
 
-/* TÜM FOTOĞRAFLAR GELSİN → SONRA MEKTUP */
+/* AFTER PHOTOS → LETTER APPEARS */
 setTimeout(()=>{
   letter.classList.add("show");
 }, 24*140 + 1200);
 
-/* BUTON */
+/* BUTTON */
 btn.addEventListener("click",()=>{
   letter.classList.add("hide");
   setTimeout(()=>{
     wrapper.style.display="none";
+    letterGone = true;
   },1600);
+});
+
+/* CLOSE LIGHTBOX */
+lightbox.addEventListener("click",()=>{
+  lightbox.classList.remove("show");
 });
 </script>
 
