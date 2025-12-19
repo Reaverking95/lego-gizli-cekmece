@@ -8,136 +8,140 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Libre+Baskerville&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #e1ddd6;
-  font-family: 'Libre Baskerville', serif;
+body{
+  margin:0;
+  height:100vh;
+  background:#e1ddd6;
+  font-family:'Libre Baskerville',serif;
+  overflow:hidden;
 }
 
-/* ---------- PHOTO GRID (HER ZAMAN VAR) ---------- */
-.photos {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  grid-auto-rows: 220px;
-  gap: 40px;
-  padding: 60px;
-  overflow-y: auto;
+/* ---------- PHOTOS GRID ---------- */
+.photos{
+  position:fixed;
+  inset:0;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-template-rows:repeat(4,1fr);
+  gap:24px;
+  padding:40px;
+  z-index:0;
 }
 
-.photos img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(100%) brightness(0.9);
-  padding: 14px;
-  background: #f3efe7;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-  opacity: 0;
-  animation: photoFade 1.6s ease forwards;
+.photos img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:grayscale(100%) brightness(.9);
+  padding:10px;
+  background:#f3efe7;
+  box-shadow:0 14px 30px rgba(0,0,0,.35);
+  opacity:0;
+  animation:photoFade 1.4s ease forwards;
 }
 
-.photos img.large {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-@keyframes photoFade {
-  to { opacity: 0.75; }
+@keyframes photoFade{
+  to{opacity:.75}
 }
 
 /* ---------- LETTER ---------- */
-.wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 120px 0;
-  pointer-events: none;
+.wrapper{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  pointer-events:none;
 }
 
-.letter {
-  pointer-events: auto;
-  position: relative;
-  width: min(760px, 90%);
-  padding: 110px 90px 140px;
-  background: url("grunge-background.jpg") center/cover no-repeat;
-  text-align: center;
-  color: #1f1b15;
+.letter{
+  pointer-events:auto;
+  width:760px;
+  max-width:90%;
+  padding:110px 90px 140px;
+  background:url("grunge-background.jpg") center/cover no-repeat;
+  text-align:center;
+  color:#1f1b15;
 
   box-shadow:
     0 40px 90px rgba(0,0,0,.35),
     inset 0 0 60px rgba(0,0,0,.15);
 
-  clip-path: polygon(
+  clip-path:polygon(
     2% 0%,98% 1%,100% 4%,99% 96%,
     95% 100%,4% 99%,0% 95%,1% 5%
   );
 
+  opacity:0;
+  transform:translateY(30px);
   transition:
     opacity 1.4s ease,
     transform 1.4s ease,
     filter 1.4s ease;
 }
 
-/* KAYBOLMA ANİMASYONU */
-.letter.hide {
-  opacity: 0;
-  transform: translateY(80px);
-  filter: blur(10px);
+.letter.show{
+  opacity:.85;
+  transform:none;
+}
+
+.letter.hide{
+  opacity:0;
+  transform:translateY(80px);
+  filter:blur(10px);
 }
 
 /* ---------- TEXT ---------- */
-.title {
-  font-family: 'Cinzel Decorative', serif;
-  letter-spacing: 0.18em;
-  font-size: 26px;
-  margin-bottom: 70px;
+.title{
+  font-family:'Cinzel Decorative',serif;
+  letter-spacing:.18em;
+  font-size:26px;
+  margin-bottom:70px;
 }
 
-.letter p {
-  font-size: 17px;
-  line-height: 1.9;
-  margin-bottom: 54px;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+.letter p{
+  font-size:17px;
+  line-height:1.9;
+  margin-bottom:54px;
+  text-shadow:0 1px 1px rgba(0,0,0,.35);
 }
 
-.divider {
-  width: 260px;
-  height: 2px;
-  background: rgba(0,0,0,0.55);
-  margin: 80px auto 30px;
+.divider{
+  width:260px;
+  height:2px;
+  background:rgba(0,0,0,.55);
+  margin:80px auto 30px;
 }
 
-.signature {
-  font-family: 'Great Vibes', cursive;
-  font-size: 38px;
+.signature{
+  font-family:'Great Vibes',cursive;
+  font-size:38px;
 }
 
 /* ---------- BUTTON ---------- */
-.reveal-btn {
-  margin-top: 60px;
-  background: transparent;
-  border: 1px solid rgba(0,0,0,0.45);
-  padding: 14px 28px;
-  font-family: 'Libre Baskerville', serif;
-  font-size: 14px;
-  cursor: pointer;
+.reveal-btn{
+  margin-top:60px;
+  background:transparent;
+  border:1px solid rgba(0,0,0,.45);
+  padding:14px 28px;
+  font-family:'Libre Baskerville',serif;
+  font-size:14px;
+  cursor:pointer;
 }
 
 /* ---------- MOBILE ---------- */
-@media (max-width: 768px) {
-  .photos {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    grid-auto-rows: 140px;
-    padding: 30px;
+@media(max-width:768px){
+  .photos{
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(8,1fr);
+    gap:18px;
+    padding:20px;
   }
 
-  .letter {
-    padding: 80px 40px 110px;
+  .letter{
+    padding:80px 40px 110px;
   }
 }
 </style>
@@ -147,7 +151,7 @@ body {
 
 <div class="photos" id="photos"></div>
 
-<div class="wrapper" id="letterWrapper">
+<div class="wrapper" id="wrapper">
   <div class="letter" id="letter">
     <div class="title">A LETTER KEPT IN TIME</div>
 
@@ -165,36 +169,37 @@ body {
     <div class="divider"></div>
     <div class="signature">Ali Yağız İyilikci</div>
 
-    <button class="reveal-btn" id="revealBtn">
+    <button class="reveal-btn" id="btn">
       Tüm fotoğrafları görmek ister misin?
     </button>
   </div>
 </div>
 
 <script>
-const photos = document.getElementById("photos");
-const letter = document.getElementById("letter");
-const wrapper = document.getElementById("letterWrapper");
-const btn = document.getElementById("revealBtn");
+const photos=document.getElementById("photos");
+const letter=document.getElementById("letter");
+const wrapper=document.getElementById("wrapper");
+const btn=document.getElementById("btn");
 
-// FOTOĞRAFLARI YÜKLE
-for (let i = 1; i <= 24; i++) {
-  const img = document.createElement("img");
-  img.src = `${i}.jpg`;
-  img.style.animationDelay = `${i * 0.12}s`;
-
-  if (i === 12 || i === 15) img.classList.add("large");
-
+// FOTOĞRAFLAR
+for(let i=1;i<=24;i++){
+  const img=document.createElement("img");
+  img.src=`${i}.jpg`;
+  img.style.animationDelay=`${i*0.1}s`;
   photos.appendChild(img);
 }
 
-// BUTON TIKLANINCA
-btn.addEventListener("click", () => {
-  letter.classList.add("hide");
+// FOTOĞRAF ANİMASYONU BİTSİN → MEKTUP GELSİN
+setTimeout(()=>{
+  letter.classList.add("show");
+}, 24*100 + 600);
 
-  setTimeout(() => {
-    wrapper.style.display = "none"; // 👈 SARI KAĞIT TAMAMEN GİDER
-  }, 1500);
+// BUTON
+btn.addEventListener("click",()=>{
+  letter.classList.add("hide");
+  setTimeout(()=>{
+    wrapper.style.display="none";
+  },1400);
 });
 </script>
 
