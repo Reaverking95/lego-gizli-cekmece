@@ -1,100 +1,96 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Letter Kept in Time</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cormorant+Garamond&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Libre+Baskerville&family=Great+Vibes&display=swap');
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Cormorant Garamond', serif;
-  background: #8c734e;
+  background: #8b6f4a;
+  font-family: 'Libre Baskerville', serif;
   overflow-x: hidden;
 }
 
 /* BACKGROUND PHOTOS */
-.photo-layer {
+.photos {
   position: fixed;
   inset: 0;
   z-index: -2;
 }
-.photo-layer img {
+.photos img {
   position: absolute;
   width: 420px;
   height: 300px;
   object-fit: cover;
-  filter: grayscale(100%) sepia(40%) brightness(0.75) blur(1.2px);
+  filter: grayscale(100%) sepia(30%) brightness(0.8);
   opacity: 0.55;
   padding: 14px;
-  background: #3a2d1f;
-  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+  background: #2f2418;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
 }
-.photo-layer img:nth-child(1){top:6%;left:8%;transform:rotate(-6deg)}
-.photo-layer img:nth-child(2){top:10%;right:10%;transform:rotate(5deg)}
-.photo-layer img:nth-child(3){bottom:18%;left:12%;transform:rotate(4deg)}
-.photo-layer img:nth-child(4){bottom:14%;right:8%;transform:rotate(-5deg)}
+.photos img:nth-child(1){top:6%;left:7%;transform:rotate(-6deg)}
+.photos img:nth-child(2){top:10%;right:9%;transform:rotate(5deg)}
+.photos img:nth-child(3){bottom:16%;left:10%;transform:rotate(4deg)}
+.photos img:nth-child(4){bottom:14%;right:8%;transform:rotate(-5deg)}
 
-.background-overlay {
+.overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.25);
   z-index: -1;
 }
 
-/* WRAPPER */
+/* CENTER */
 .wrapper {
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 120px 16px;
 }
 
-/* LETTER BASE */
+/* LETTER */
 .letter {
   position: relative;
-  max-width: 760px;
+  max-width: 780px;
   width: 100%;
   padding: 96px 88px 110px;
-
-  /* KESİN TABAN */
-  background: radial-gradient(
-    ellipse at center,
-    #fff9ec 0%,
-    #f5e4b8 55%,
-    #ddb26f 100%
-  );
-
-  color: #2a1e12;
   text-align: center;
+  color: #2a1c0f;
 
+  background:
+    radial-gradient(ellipse at center, #fff6dd 0%, #f0d9a8 60%, #ddb66f 100%);
   box-shadow:
-    0 50px 140px rgba(0,0,0,0.45),
-    inset 0 0 120px rgba(180,130,60,0.35);
+    0 60px 160px rgba(0,0,0,0.5),
+    inset 0 0 120px rgba(190,140,60,0.35);
 
   clip-path: polygon(
-    2% 0%, 98% 1%,
-    100% 98%, 3% 100%,
-    0% 3%
+    3% 0%,
+    97% 2%,
+    100% 97%,
+    4% 100%,
+    0% 6%
   );
 }
 
-/* PAPER TEXTURE OVERLAY (THE KEY FIX) */
+/* PAPER TEXTURE — YOUR IMAGE */
 .letter::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("paper-texture.avif");
-  background-size: cover;
-  opacity: 0.85;
-  pointer-events: none;
+  background: url("grunge-background.jpg") center / cover no-repeat;
+  opacity: 0.9;
   mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 /* AGED EDGES */
@@ -104,40 +100,46 @@ body {
   inset: 0;
   background:
     radial-gradient(circle at top left,
-      rgba(200,140,60,0.65),
+      rgba(185,130,55,0.6),
       transparent 60%
     ),
     radial-gradient(circle at bottom right,
-      rgba(180,120,45,0.6),
+      rgba(160,110,40,0.55),
       transparent 65%
+    ),
+    radial-gradient(circle at top right,
+      rgba(170,120,45,0.4),
+      transparent 55%
     );
   pointer-events: none;
 }
 
-/* FOLD */
+/* FOLD LINE */
 .fold {
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 0;
   width: 100%;
   height: 2px;
   background: linear-gradient(
     to bottom,
-    rgba(170,120,45,0.4),
-    rgba(255,245,225,0.6),
-    rgba(170,120,45,0.4)
+    rgba(170,120,45,0.45),
+    rgba(255,245,225,0.7),
+    rgba(170,120,45,0.45)
   );
   opacity: 0.6;
 }
 
+/* CONTENT */
 .title {
   font-family: 'Cinzel Decorative', serif;
   font-size: 36px;
-  margin-bottom: 48px;
+  margin-bottom: 52px;
+  letter-spacing: 1px;
 }
 
 .letter p {
-  font-size: 19px;
+  font-size: 18.5px;
   line-height: 2.2;
   margin: 0 0 42px;
 }
@@ -146,7 +148,7 @@ body {
   width: 180px;
   height: 1px;
   background: rgba(150,110,45,0.6);
-  margin: 60px auto 36px;
+  margin: 64px auto 36px;
 }
 
 .signature {
@@ -154,25 +156,34 @@ body {
   font-size: 38px;
 }
 
+/* MOBILE */
 @media (max-width: 768px) {
-  .letter { padding: 64px 38px 74px; }
-  .title { font-size: 26px; }
-  .letter p { font-size: 16.5px; }
-  .signature { font-size: 28px; }
+  .letter {
+    padding: 64px 34px 76px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .letter p {
+    font-size: 16.5px;
+  }
+  .signature {
+    font-size: 28px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="photo-layer">
-  <img src="https://images.unsplash.com/photo-1504198458649-3128b932f49b">
+<div class="photos">
   <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
   <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e">
   <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9">
+  <img src="https://images.unsplash.com/photo-1504198458649-3128b932f49b">
 </div>
 
-<div class="background-overlay"></div>
+<div class="overlay"></div>
 
 <div class="wrapper">
   <div class="letter">
@@ -180,11 +191,25 @@ body {
 
     <div class="title">A Letter Kept in Time</div>
 
-    <p>Eğer bu satırları okuyorsan,<br>demek ki o küçük çekmeceyi buldun.</p>
-    <p>Bu sayfa aceleyle değil;<br>düşünülerek, sakince ve sadece senin için yazıldı.</p>
-    <p>Hayat bazen çok hızlı akıyor.<br>Bu mektup da o hızın içinde,<br>durup nefes alman için küçük bir mola.</p>
+    <p>
+      If you are reading this,<br>
+      it means you found that little drawer.
+    </p>
+
+    <p>
+      This page was not written in a hurry;<br>
+      it was written slowly, thoughtfully,<br>
+      and only for you.
+    </p>
+
+    <p>
+      Life moves fast sometimes.<br>
+      I wanted this letter to be a small pause,<br>
+      a quiet place to breathe.
+    </p>
 
     <div class="divider"></div>
+
     <div class="signature">Ali Yağız İyilikci</div>
   </div>
 </div>
