@@ -63,10 +63,11 @@ body {
   width: min(760px, 90%);
   padding: 110px 90px 140px;
   background: url("grunge-background.jpg") center/cover no-repeat;
-  color: #2a241d; /* darker text */
+  color: #2a241d;
   text-align: center;
 
-  opacity: 0.88; /* letter more faded */
+  opacity: 0;                 /* 👈 BAŞTA GÖRÜNMÜYOR */
+  transform: translateY(30px);
 
   box-shadow:
     0 40px 90px rgba(0,0,0,0.35),
@@ -77,14 +78,13 @@ body {
     95% 100%, 4% 99%, 0% 95%, 1% 5%
   );
 
-  transform: translateY(30px);
-  animation: letterReveal 1.6s ease forwards;
-  animation-delay: 2.8s;
+  animation: letterReveal 1.8s ease forwards;
+  animation-delay: 2.8s;      /* 👈 ARKA PLAN SONRA */
 }
 
 @keyframes letterReveal {
   to {
-    opacity: 0.88;
+    opacity: 0.82;            /* 👈 DAHA SOLUK */
     transform: translateY(0);
   }
 }
@@ -106,7 +106,7 @@ body {
   text-shadow: 0 0.6px 0 rgba(0,0,0,0.25);
 }
 
-/* divider before signature */
+/* divider */
 .divider {
   width: 240px;
   height: 2px;
@@ -132,6 +132,7 @@ body {
 @media (max-width: 768px) {
   .letter {
     padding: 80px 40px 110px;
+    animation-delay: 2.4s;
   }
 
   .photos img {
@@ -171,11 +172,9 @@ body {
     a quiet place to breathe.</p>
 
     <div class="divider"></div>
-
     <div class="signature">Ali Yağız İyilikci</div>
   </div>
 </div>
 
 </body>
 </html>
-
