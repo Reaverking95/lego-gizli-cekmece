@@ -72,11 +72,11 @@ body{
   );
 
   opacity:0;
-  transform:translateY(30px);
+  transform:translateY(40px);
   transition:
-    opacity 1.4s ease,
-    transform 1.4s ease,
-    filter 1.4s ease;
+    opacity 2.4s ease,
+    transform 2.4s ease,
+    filter 2.4s ease;
 }
 
 .letter.show{
@@ -145,10 +145,8 @@ body{
 
 <body>
 
-<!-- FOTOĞRAFLAR (ARKA PLAN SAHNESİ) -->
 <div class="photos" id="photos"></div>
 
-<!-- MEKTUP (AYNI EKRANIN ÜZERİNDE) -->
 <div class="wrapper" id="wrapper">
   <div class="letter" id="letter">
     <div class="title">A LETTER KEPT IN TIME</div>
@@ -183,21 +181,21 @@ const btn=document.getElementById("btn");
 for(let i=1;i<=24;i++){
   const img=document.createElement("img");
   img.src=`${i}.jpg`;
-  img.style.animationDelay=`${i*0.1}s`;
+  img.style.animationDelay=`${i*0.14}s`;
   photos.appendChild(img);
 }
 
-/* FOTOĞRAFLAR BİTSİN → MEKTUP GELSİN */
+/* TÜM FOTOĞRAFLAR GELSİN → SONRA MEKTUP */
 setTimeout(()=>{
   letter.classList.add("show");
-}, 24*100 + 600);
+}, 24*140 + 1200);
 
 /* BUTON */
 btn.addEventListener("click",()=>{
   letter.classList.add("hide");
   setTimeout(()=>{
     wrapper.style.display="none";
-  },1400);
+  },1600);
 });
 </script>
 
