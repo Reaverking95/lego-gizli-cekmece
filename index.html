@@ -8,9 +8,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Libre+Baskerville&family=Great+Vibes&display=swap');
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -67,49 +65,63 @@ body {
   text-align: center;
   color: #2a1c0f;
 
+  /* 🔆 biraz daha aydınlık taban */
   background:
-    radial-gradient(ellipse at center, #fff6dd 0%, #f0d9a8 60%, #ddb66f 100%);
-  box-shadow:
-    0 60px 160px rgba(0,0,0,0.5),
-    inset 0 0 120px rgba(190,140,60,0.35);
+    radial-gradient(
+      ellipse at center,
+      #fffdf5 0%,
+      #f3dfb0 55%,
+      #e2b86f 100%
+    );
 
+  /* 📦 arka plandan daha net ayırma */
+  box-shadow:
+    0 70px 180px rgba(0,0,0,0.55),
+    0 0 0 6px rgba(255,245,220,0.25),
+    inset 0 0 120px rgba(190,140,60,0.30);
+
+  /* 🔲 DİK VE DENGELİ KENAR */
   clip-path: polygon(
-    3% 0%,
-    97% 2%,
-    100% 97%,
-    4% 100%,
-    0% 6%
+    2.5% 0.5%,
+    97.5% 0.5%,
+    100% 97.5%,
+    2.5% 100%,
+    0.5% 2.5%
   );
 }
 
-/* PAPER TEXTURE — YOUR IMAGE */
+/* PAPER TEXTURE */
 .letter::before {
   content: "";
   position: absolute;
   inset: 0;
   background: url("grunge-background.jpg") center / cover no-repeat;
-  opacity: 0.9;
+  opacity: 0.92;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
 
-/* AGED EDGES */
+/* AGED EDGES – DENGELİ */
 .letter::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
     radial-gradient(circle at top left,
-      rgba(185,130,55,0.6),
+      rgba(185,130,55,0.45),
       transparent 60%
     ),
-    radial-gradient(circle at bottom right,
-      rgba(160,110,40,0.55),
+    radial-gradient(circle at top right,
+      rgba(185,130,55,0.45),
+      transparent 60%
+    ),
+    radial-gradient(circle at bottom left,
+      rgba(160,110,40,0.4),
       transparent 65%
     ),
-    radial-gradient(circle at top right,
-      rgba(170,120,45,0.4),
-      transparent 55%
+    radial-gradient(circle at bottom right,
+      rgba(160,110,40,0.4),
+      transparent 65%
     );
   pointer-events: none;
 }
@@ -123,11 +135,11 @@ body {
   height: 2px;
   background: linear-gradient(
     to bottom,
-    rgba(170,120,45,0.45),
-    rgba(255,245,225,0.7),
-    rgba(170,120,45,0.45)
+    rgba(170,120,45,0.4),
+    rgba(255,248,225,0.75),
+    rgba(170,120,45,0.4)
   );
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 /* CONTENT */
