@@ -1,223 +1,242 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bizim Küçük Sırrımız – Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You</title>
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Great+Vibes&display=swap');
 
-body {
-  min-height: 100vh;
-  background: #dde3ff;
-  color: #111827;
-  overflow-x: hidden;
-  position: relative;
-}
+    /* ========== GLOBAL ========== */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #111;
+      font-family: 'Playfair Display', serif;
+    }
 
-/* ARKA PLAN KOLAJI – 20 FOTOĞRAF */
-.collage {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
+    /* ========== BACKGROUND COLLAGE ========== */
+    .background-collage {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
 
-/* Ortak foto stil */
-.collage img {
-  position: absolute;
-  object-fit: cover;
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
-  opacity: 0.32;
-}
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-auto-rows: 20vh;
+      gap: 8px;
 
-/* Farklı boyut + konum + açı – ekranı doldurur */
-.ph1  { width: 240px; height: 340px; top: 3%;  left: 3%;  transform: rotate(-6deg); }
-.ph2  { width: 220px; height: 150px; top: 6%;  left: 28%; transform: rotate(4deg);  }
-.ph3  { width: 260px; height: 180px; top: 4%;  right: 5%; transform: rotate(-5deg); }
+      padding: 10px;
+    }
 
-.ph4  { width: 200px; height: 280px; top: 22%; left: 2%;  transform: rotate(5deg);  }
-.ph5  { width: 180px; height: 240px; top: 20%; left: 20%; transform: rotate(-3deg); }
-.ph6  { width: 210px; height: 300px; top: 19%; right: 24%; transform: rotate(4deg); }
-.ph7  { width: 190px; height: 260px; top: 22%; right: 2%;  transform: rotate(-5deg); }
+    .background-collage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
 
-.ph8  { width: 260px; height: 180px; top: 46%; left: 5%;  transform: rotate(-2deg); }
-.ph9  { width: 230px; height: 160px; top: 44%; right: 7%; transform: rotate(3deg);  }
+      filter:
+        grayscale(85%)
+        blur(1.5px)
+        brightness(0.75)
+        contrast(0.95);
 
-.ph10 { width: 220px; height: 320px; bottom: 6%; left: 4%;  transform: rotate(3deg);  }
-.ph11 { width: 230px; height: 170px; bottom: 16%; left: 26%; transform: rotate(-3deg); }
-.ph12 { width: 220px; height: 320px; bottom: 7%; right: 5%; transform: rotate(-4deg); }
+      border-radius: 6px;
+    }
 
-.ph13 { width: 150px; height: 210px; top: 34%; left: 45%; transform: rotate(-2deg); }
-.ph14 { width: 150px; height: 210px; top: 34%; right: 45%; transform: rotate(2deg); }
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+      z-index: -1;
+    }
 
-.ph15 { width: 140px; height: 190px; top: 10%; left: 52%; transform: rotate(-4deg); }
-.ph16 { width: 140px; height: 190px; bottom: 8%; left: 52%; transform: rotate(4deg);  }
+    /* ========== LETTER ========== */
+    .letter-wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      padding: 70px 20px;
+    }
 
-.ph17 { width: 130px; height: 180px; top: 55%; left: 12%; transform: rotate(3deg);  }
-.ph18 { width: 130px; height: 180px; top: 55%; right: 12%; transform: rotate(-3deg); }
+    .letter {
+      max-width: 720px;
+      width: 100%;
+      background: #f6f1e7;
+      color: #2b2b2b;
 
-.ph19 { width: 160px; height: 110px; bottom: 4%; left: 40%; transform: rotate(-2deg); }
-.ph20 { width: 160px; height: 110px; top: 4%;    right: 40%; transform: rotate(2deg); }
+      padding: 54px 48px;
+      border-radius: 6px;
 
-/* Küçük ekranda biraz sadeleştir ama yine dolu kalsın */
-@media (max-width: 600px) {
-  .collage img {
-    opacity: 0.22;
-  }
+      box-shadow:
+        0 14px 34px rgba(0,0,0,0.18),
+        inset 0 0 0 1px rgba(0,0,0,0.06);
 
-  .ph2, .ph4, .ph7, .ph11, .ph14, .ph16, .ph18, .ph19 {
-    display: none;
-  }
-}
+      font-size: 18px;
+      line-height: 1.9;
 
-/* ORTA KART – UZUN PARAGRAF İÇİN BÜYÜK VERSİYON */
-.content {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 16px;
-}
+      background-image:
+        radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+      background-size: 3px 3px;
 
-.card {
-  background: rgba(255, 255, 255, 0.97);
-  border-radius: 24px;
-  padding: 32px 28px 34px;
-  max-width: 560px;   /* daha geniş kart */
-  width: 100%;
-  max-height: 90vh;   /* çok uzun metinde taşmasın diye */
-  overflow-y: auto;   /* metin uzarsa içinde scroll olsun */
-  box-shadow:
-    0 26px 60px rgba(15, 23, 42, 0.24),
-    0 0 0 1px rgba(148, 163, 184, 0.3);
-  text-align: center;
-}
+      opacity: 0;
+      transform: translateY(20px);
+      animation: letterFade 0.9s ease-out forwards;
+    }
 
-/* METİN */
-.icon {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
+    /* Paragraph spacing (desktop) */
+    .letter p {
+      margin-bottom: 24px;
+    }
 
-h1 {
-  font-size: 26px;
-  margin-bottom: 10px;
-  letter-spacing: 0.03em;
-}
+    /* Signature */
+    .signature {
+      margin-top: 44px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 30px;
+      color: #1f1f1f;
+    }
 
-.line {
-  width: 80px;
-  height: 2px;
-  margin: 12px auto 20px;
-  background: linear-gradient(90deg, #fb7185, #fbbf24);
-  border-radius: 999px;
-}
+    .fade-signature {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
 
-p {
-  font-size: 15.5px;
-  line-height: 1.8;
-  margin-bottom: 14px;
-  text-align: left;
-}
+    .fade-signature.visible {
+      opacity: 1;
+    }
 
-p.centered {
-  text-align: center;
-}
+    @keyframes letterFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.signature {
-  margin-top: 16px;
-  font-size: 14px;
-  opacity: 0.9;
-}
+    /* ========== MOBILE PERFECT MODE ========== */
+    @media (max-width: 768px) {
 
-.heart {
-  font-size: 20px;
-  margin-top: 8px;
-}
+      /* Background */
+      .background-collage {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 30vh;
+        gap: 6px;
+        padding: 6px;
+      }
 
-.note {
-  font-size: 11px;
-  opacity: 0.6;
-  margin-top: 14px;
-}
-</style>
+      .background-collage img {
+        filter:
+          grayscale(90%)
+          blur(2px)
+          brightness(0.7)
+          contrast(0.95);
+        border-radius: 8px;
+      }
+
+      /* Letter wrapper */
+      .letter-wrapper {
+        padding: 40px 14px;
+      }
+
+      /* Letter with subtle gradient */
+      .letter {
+        max-width: 100%;
+        padding: 36px 24px;
+        font-size: 17px;
+        line-height: 2;
+        border-radius: 8px;
+
+        /* VERY subtle gradient */
+        background:
+          linear-gradient(
+            to bottom,
+            #f8f4ec 0%,
+            #f6f1e7 40%,
+            #f3ede2 100%
+          );
+
+        animation-duration: 0.6s;
+        transform: translateY(12px);
+      }
+
+      /* Long text micro spacing */
+      .letter p {
+        margin-bottom: 30px;
+      }
+
+      .signature {
+        font-size: 26px;
+        margin-top: 48px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 20 FOTOĞRAFLI ARKA PLAN DEMOSU -->
-<div class="collage">
-  <img src="https://picsum.photos/500/720?random=1"   alt="" class="ph1" />
-  <img src="https://picsum.photos/700/450?random=2"   alt="" class="ph2" />
-  <img src="https://picsum.photos/800/520?random=3"   alt="" class="ph3" />
-  <img src="https://picsum.photos/480/700?random=4"   alt="" class="ph4" />
-  <img src="https://picsum.photos/420/560?random=5"   alt="" class="ph5" />
-  <img src="https://picsum.photos/520/740?random=6"   alt="" class="ph6" />
-  <img src="https://picsum.photos/460/640?random=7"   alt="" class="ph7" />
-  <img src="https://picsum.photos/720/480?random=8"   alt="" class="ph8" />
-  <img src="https://picsum.photos/520/760?random=9"   alt="" class="ph9" />
-  <img src="https://picsum.photos/700/460?random=10"  alt="" class="ph10" />
-  <img src="https://picsum.photos/480/720?random=11"  alt="" class="ph11" />
-  <img src="https://picsum.photos/420/600?random=12"  alt="" class="ph12" />
-  <img src="https://picsum.photos/420/600?random=13"  alt="" class="ph13" />
-  <img src="https://picsum.photos/400/560?random=14"  alt="" class="ph14" />
-  <img src="https://picsum.photos/400/560?random=15"  alt="" class="ph15" />
-  <img src="https://picsum.photos/400/560?random=16"  alt="" class="ph16" />
-  <img src="https://picsum.photos/380/540?random=17"  alt="" class="ph17" />
-  <img src="https://picsum.photos/380/540?random=18"  alt="" class="ph18" />
-  <img src="https://picsum.photos/420/300?random=19"  alt="" class="ph19" />
-  <img src="https://picsum.photos/420/300?random=20"  alt="" class="ph20" />
-</div>
+  <!-- Background -->
+  <div class="background-collage">
+    <img src="img1.jpg">
+    <img src="img2.jpg">
+    <img src="img3.jpg">
+    <img src="img4.jpg">
+    <img src="img5.jpg">
+    <img src="img6.jpg">
+    <img src="img7.jpg">
+    <img src="img8.jpg">
+    <img src="img9.jpg">
+    <img src="img10.jpg">
+    <img src="img11.jpg">
+    <img src="img12.jpg">
+  </div>
+  <div class="background-overlay"></div>
 
-<!-- ORTADAKİ NOT – UZUN PARAGRAF İÇİN HAZIR -->
-<div class="content">
-  <main class="card">
-    <div class="icon">🔐</div>
-    <h1>Bizim Küçük Sırrımız</h1>
-    <div class="line"></div>
+  <!-- Letter -->
+  <div class="letter-wrapper">
+    <div class="letter">
 
-    <!-- BURAYI İSTEDİĞİN KADAR UZATABİLİRSİN -->
-    <p>
-      Eğer bu sayfayı görüyorsan, LEGO kutunun içindeki
-      gizli çekmeceyi bulmuşsun demektir. Belki bu sadece küçücük bir
-      detay gibi görünüyor, ama ben senin için bu küçük detayın içine
-      koca bir dünya sığdırmak istedim. Bu satırları okurken, aklına
-      birlikte güldüğümüz, saçma şeylere tartışıp yine de sarılıp
-      barıştığımız, sadece yan yana sessizce oturduğumuz anlar gelsin.
-    </p>
+      <p>
+        If you are reading this, it means you found that little drawer.
+        This page was not made in a hurry.
+        It was written slowly, thoughtfully, and only for you.
+      </p>
 
-    <p>
-      Hayat bazen çok hızlı, çok gürültülü ve fazla yorucu olabiliyor.
-      İşte bu sayfa, o hızlı anların içinde sadece bir anlığına durup,
-      “evet, biri beni gerçekten düşünüp uğraşmış” diyeceğin küçük bir
-      mola olsun istedim. Belki ileride bu satırları yıllar sonra
-      tekrar açıp okursun; belki de sadece bugün, bu an için varlar.
-      Ama ne olursa olsun, şu anda bu kelimelerin arkasında çok gerçek
-      ve çok içten bir sevgi olduğunu bilmeni istiyorum.
-    </p>
+      <p>
+        Life moves fast sometimes.
+        Days pass, moments slip away.
+        I wanted this letter to be a small pause inside all that movement.
+        A quiet place to stop, breathe, and smile.
+      </p>
 
-    <p class="centered signature">
-      Sevgilerle,<br />
-      <strong>Ali Yağız İyilikci</strong>
-    </p>
+      <p>
+        Not everything has to be perfect.
+        But some things are meant to be special.
+        This is one of them.
+      </p>
 
-    <div class="heart">❤️</div>
+      <p class="signature fade-signature">
+        With love,<br>
+        Ali Yağız İyilikci
+      </p>
 
-    <div class="note">
-      Bu sayfa, sadece ikimizin bildiği küçük bir sır olarak kalsın.
     </div>
-  </main>
-</div>
+  </div>
+
+  <!-- Signature fade-in -->
+  <script>
+    const signature = document.querySelector('.fade-signature');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          signature.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.6 });
+
+    observer.observe(signature);
+  </script>
 
 </body>
 </html>
