@@ -17,7 +17,7 @@ body{
   margin:0;
   font-family:'Libre Baskerville',serif;
   background:#e8e4dc;
-  overflow:hidden; /* 🔒 MASAÜSTÜ SCROLL KİLİTLİ */
+  overflow:hidden;
 }
 
 /* ---------- BACKGROUND GRID ---------- */
@@ -41,6 +41,15 @@ body{
   box-shadow:0 14px 35px rgba(0,0,0,.25);
   opacity:0;
   animation:photoIn 1s ease forwards;
+  transition:transform .3s ease;
+}
+
+.gallery.active img{
+  cursor:zoom-in;
+}
+
+.gallery.active img:hover{
+  transform:scale(1.03);
 }
 
 @keyframes photoIn{
@@ -62,7 +71,7 @@ body{
 .letter{
   width:min(780px,92%);
   max-height:90vh;
-  overflow-y:auto;              /* 🔑 SCROLL ARTIK MEKTUBUN İÇİNDE */
+  overflow-y:auto;
   padding:120px 90px 140px;
   background:url("grunge-background.jpg") center/cover no-repeat;
   text-align:center;
@@ -78,6 +87,10 @@ body{
   animation:letterIn 2.2s ease forwards;
   animation-delay:3.2s;
 }
+
+/* 🔑 scrollbar tamamen gizli ama scroll çalışır */
+.letter::-webkit-scrollbar{display:none}
+.letter{scrollbar-width:none}
 
 @keyframes letterIn{
   to{opacity:.88;transform:none}
@@ -96,6 +109,10 @@ body{
   font-size:24px;
   font-weight:700;
   margin-bottom:70px;
+}
+
+.subtitle-symbols{
+  display:inline;
 }
 
 .letter p{
@@ -148,7 +165,7 @@ body{
 .lightbox img{
   max-width:90%;
   max-height:90%;
-  transition:opacity .55s cubic-bezier(.4,0,.2,1); /* ✨ DAHA AKICI */
+  transition:opacity .55s cubic-bezier(.4,0,.2,1);
 }
 
 .arrow{
@@ -165,9 +182,7 @@ body{
 
 /* ---------- MOBILE ---------- */
 @media(max-width:900px){
-  body{
-    overflow:auto; /* 📱 mobil serbest */
-  }
+  body{overflow:auto}
 
   .gallery{
     grid-template-columns:repeat(3,1fr);
@@ -180,13 +195,15 @@ body{
   }
 
   .letter{
-    max-height:90vh;
-    overflow-y:auto;
     padding-bottom:120px;
   }
 
-  .arrow{
-    display:none;
+  .arrow{display:none}
+
+  /* 🦋 semboller alt satıra iner */
+  .subtitle-symbols{
+    display:block;
+    margin-top:6px;
   }
 }
 </style>
@@ -199,7 +216,10 @@ body{
 <div class="wrapper" id="wrapper">
   <div class="letter" id="letter">
     <div class="title">A TIMELESS LETTER TILL ETERNITY</div>
-    <div class="subtitle">FOR MY BUTTERFLY ⋆.°🦋༘⋆</div>
+    <div class="subtitle">
+      FOR MY BUTTERFLY
+      <span class="subtitle-symbols">⋆.°🦋༘⋆</span>
+    </div>
 
     <p>If you are reading this,<br>it means you found that little drawer.</p>
     <p>This page was not written in a hurry;<br>
@@ -242,6 +262,7 @@ btn.onclick=()=>{
   letter.classList.add("hide");
   setTimeout(()=>{
     wrapper.style.display="none";
+    gallery.classList.add("active");
     gallery.style.pointerEvents="auto";
     active=true;
   },1400);
