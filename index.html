@@ -218,20 +218,69 @@ const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 
 let letterGone = false;
+let currentIndex = 0;
+let startX = 0;
 
 /* LOAD PHOTOS */
 for(let i=1;i<=24;i++){
   const img=document.createElement("img");
   img.src=`${i}.jpg`;
+  img.dataset.index = i - 1;
   img.style.animationDelay=`${i*0.14}s`;
 
   img.addEventListener("click",()=>{
     if(!letterGone) return;
-    lightboxImg.src = img.src;
-    lightbox.classList.add("show");
+    openLightbox(i - 1);
   });
 
   photos.appendChild(img);
+}
+
+/* OPEN LIGHTBOX */
+function openLightbox(index){
+  currentIndex = index;
+  lightboxImg.src = `${currentIndex + 1}.jpg`;
+  lightbox.classList.add("show");
+}
+
+/* CLOSE LIGHTBOX */
+lightbox.addEventListener("click",()=>{
+  lightbox.classList.remove("show");
+});
+
+/* SWIPE START */
+lightbox.addEventListener("touchstart",(e)=>{
+  startX = e.touches[0].clientX;
+});
+
+/* SWIPE END */
+lightbox.addEventListener("touchend",(e)=>{
+  const endX = e.changedTouches[0].clientX;
+  const diff = startX - endX;
+
+  if(Math.abs(diff) > 50){
+    if(diff > 0) nextPhoto();
+    else prevPhoto();
+  }
+});
+
+/* DESKTOP ARROWS */
+document.addEventListener("keydown",(e)=>{
+  if(!lightbox.classList.contains("show")) return;
+
+  if(e.key === "ArrowRight") nextPhoto();
+  if(e.key === "ArrowLeft") prevPhoto();
+});
+
+/* NAVIGATION */
+function nextPhoto(){
+  currentIndex = (currentIndex + 1) % 24;
+  lightboxImg.src = `${currentIndex + 1}.jpg`;
+}
+
+function prevPhoto(){
+  currentIndex = (currentIndex - 1 + 24) % 24;
+  lightboxImg.src = `${currentIndex + 1}.jpg`;
 }
 
 /* AFTER PHOTOS → LETTER APPEARS */
@@ -246,11 +295,6 @@ btn.addEventListener("click",()=>{
     wrapper.style.display="none";
     letterGone = true;
   },1600);
-});
-
-/* CLOSE LIGHTBOX */
-lightbox.addEventListener("click",()=>{
-  lightbox.classList.remove("show");
 });
 </script>
 
