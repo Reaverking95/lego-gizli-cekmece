@@ -43,7 +43,7 @@ body{
   to{opacity:.75}
 }
 
-/* ---------- LETTER (OVER PHOTOS) ---------- */
+/* ---------- LETTER ---------- */
 .wrapper{
   position:fixed;
   inset:0;
@@ -129,8 +129,8 @@ body{
   cursor:pointer;
 }
 
-/* ---------- MOBILE FIX ---------- */
-@media (max-width:768px){
+/* ---------- MOBILE ---------- */
+@media(max-width:768px){
   .photos{
     grid-template-columns:repeat(3,1fr);
     padding:20px;
@@ -153,7 +153,7 @@ body{
 .lightbox{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,.85);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -173,6 +173,27 @@ body{
   max-height:90vh;
   object-fit:contain;
   box-shadow:0 30px 80px rgba(0,0,0,.6);
+  transition:opacity .35s ease;
+}
+
+/* ---------- LIGHTBOX ARROWS ---------- */
+.lightbox-arrow{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:42px;
+  color:rgba(255,255,255,.8);
+  cursor:pointer;
+  user-select:none;
+  z-index:25;
+  padding:10px 18px;
+}
+
+.lightbox-arrow.left{left:20px}
+.lightbox-arrow.right{right:20px}
+
+@media(max-width:768px){
+  .lightbox-arrow{display:none}
 }
 </style>
 </head>
@@ -207,93 +228,97 @@ body{
 
 <div class="lightbox" id="lightbox">
   <img id="lightboxImg" src="">
+  <div class="lightbox-arrow left" id="prevArrow">&#10094;</div>
+  <div class="lightbox-arrow right" id="nextArrow">&#10095;</div>
 </div>
 
 <script>
-const photos = document.getElementById("photos");
-const letter = document.getElementById("letter");
-const wrapper = document.getElementById("wrapper");
-const btn = document.getElementById("btn");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
+const photos=document.getElementById("photos");
+const letter=document.getElementById("letter");
+const wrapper=document.getElementById("wrapper");
+const btn=document.getElementById("btn");
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightboxImg");
+const prevArrow=document.getElementById("prevArrow");
+const nextArrow=document.getElementById("nextArrow");
 
-let letterGone = false;
-let currentIndex = 0;
-let startX = 0;
+let letterGone=false;
+let currentIndex=0;
+let startX=0;
 
 /* LOAD PHOTOS */
 for(let i=1;i<=24;i++){
   const img=document.createElement("img");
   img.src=`${i}.jpg`;
-  img.dataset.index = i - 1;
   img.style.animationDelay=`${i*0.14}s`;
 
   img.addEventListener("click",()=>{
     if(!letterGone) return;
-    openLightbox(i - 1);
+    openLightbox(i-1);
   });
 
   photos.appendChild(img);
 }
 
-/* OPEN LIGHTBOX */
+/* LIGHTBOX */
 function openLightbox(index){
-  currentIndex = index;
-  lightboxImg.src = `${currentIndex + 1}.jpg`;
+  currentIndex=index;
+  showPhoto();
   lightbox.classList.add("show");
 }
 
-/* CLOSE LIGHTBOX */
-lightbox.addEventListener("click",()=>{
-  lightbox.classList.remove("show");
-});
+function showPhoto(){
+  lightboxImg.style.opacity=0;
+  setTimeout(()=>{
+    lightboxImg.src=`${currentIndex+1}.jpg`;
+    lightboxImg.onload=()=>lightboxImg.style.opacity=1;
+  },150);
+}
 
-/* SWIPE START */
-lightbox.addEventListener("touchstart",(e)=>{
-  startX = e.touches[0].clientX;
-});
-
-/* SWIPE END */
-lightbox.addEventListener("touchend",(e)=>{
-  const endX = e.changedTouches[0].clientX;
-  const diff = startX - endX;
-
-  if(Math.abs(diff) > 50){
-    if(diff > 0) nextPhoto();
-    else prevPhoto();
-  }
-});
-
-/* DESKTOP ARROWS */
-document.addEventListener("keydown",(e)=>{
-  if(!lightbox.classList.contains("show")) return;
-
-  if(e.key === "ArrowRight") nextPhoto();
-  if(e.key === "ArrowLeft") prevPhoto();
-});
-
-/* NAVIGATION */
 function nextPhoto(){
-  currentIndex = (currentIndex + 1) % 24;
-  lightboxImg.src = `${currentIndex + 1}.jpg`;
+  currentIndex=(currentIndex+1)%24;
+  showPhoto();
 }
 
 function prevPhoto(){
-  currentIndex = (currentIndex - 1 + 24) % 24;
-  lightboxImg.src = `${currentIndex + 1}.jpg`;
+  currentIndex=(currentIndex-1+24)%24;
+  showPhoto();
 }
 
-/* AFTER PHOTOS → LETTER APPEARS */
+lightbox.addEventListener("click",(e)=>{
+  if(e.target===lightbox) lightbox.classList.remove("show");
+});
+
+nextArrow.addEventListener("click",(e)=>{
+  e.stopPropagation();
+  nextPhoto();
+});
+
+prevArrow.addEventListener("click",(e)=>{
+  e.stopPropagation();
+  prevPhoto();
+});
+
+/* SWIPE */
+lightbox.addEventListener("touchstart",(e)=>{
+  startX=e.touches[0].clientX;
+});
+
+lightbox.addEventListener("touchend",(e)=>{
+  const diff=startX-e.changedTouches[0].clientX;
+  if(Math.abs(diff)>50) diff>0?nextPhoto():prevPhoto();
+});
+
+/* LETTER TIMING */
 setTimeout(()=>{
   letter.classList.add("show");
-}, 24*140 + 1200);
+},24*140+1200);
 
-/* BUTTON */
 btn.addEventListener("click",()=>{
   letter.classList.add("hide");
   setTimeout(()=>{
     wrapper.style.display="none";
-    letterGone = true;
+    letterGone=true;
   },1600);
 });
 </script>
