@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>A Timeless Letter Till Eternity</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Timeless Letter</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Libre+Baskerville&family=Great+Vibes&display=swap" rel="stylesheet">
 
@@ -13,149 +13,127 @@
 body{
   margin:0;
   font-family:'Libre Baskerville',serif;
-  background:#e6e2dc;
+  background:#e8e4dc;
   overflow-x:hidden;
 }
 
-/* ---------------- PHOTOS GRID ---------------- */
-.photos-grid{
+/* ---------- PHOTO GRID ---------- */
+.gallery{
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  gap:24px;
+  gap:28px;
   padding:60px;
-  opacity:0;
-  animation:photosIn 2.5s ease forwards;
+  max-width:1600px;
+  margin:auto;
 }
 
-@keyframes photosIn{
-  to{opacity:1}
-}
-
-.photos-grid img{
+.gallery img{
   width:100%;
   aspect-ratio:4/3;
   object-fit:cover;
   filter:grayscale(100%) contrast(1.05);
-  background:#f4f1ec;
-  padding:10px;
-  box-shadow:0 14px 30px rgba(0,0,0,.35);
+  background:#f4f1ea;
+  padding:12px;
+  box-shadow:0 14px 35px rgba(0,0,0,.25);
   cursor:pointer;
-  transition:transform .3s ease,box-shadow .3s ease;
+  opacity:0;
+  animation:photoIn 1.2s ease forwards;
 }
 
-.photos-grid img:hover{
-  transform:scale(1.03);
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
+.gallery img:nth-child(n){
+  animation-delay:calc(var(--i) * .08s);
 }
 
-/* ---------------- LETTER ---------------- */
+@keyframes photoIn{
+  from{opacity:0;transform:scale(.97)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* ---------- LETTER ---------- */
 .wrapper{
+  position:fixed;
+  inset:0;
   display:flex;
   justify-content:center;
-  padding:80px 0 160px;
-
+  align-items:center;
+  z-index:10;
+  pointer-events:none;
 }
 
 .letter{
   width:min(780px,92%);
-  padding:120px 90px 150px;
+  padding:120px 90px 140px;
   background:url("grunge-background.jpg") center/cover no-repeat;
   text-align:center;
   color:#2a241d;
-  opacity:0;
-  transform:translateY(40px);
   box-shadow:0 40px 90px rgba(0,0,0,.35),
-             inset 0 0 60px rgba(0,0,0,.18);
+             inset 0 0 60px rgba(0,0,0,.15);
   clip-path:polygon(
-    2% 0%,98% 1%,100% 4%,99% 96%,
-    95% 100%,4% 99%,0% 95%,1% 5%
+    2% 0%,98% 1%,100% 5%,99% 95%,
+    96% 100%,4% 99%,0% 96%,1% 4%
   );
-  animation:letterIn 2.6s ease forwards;
-  animation-delay:3.2s;
-  position:relative;
+  opacity:0;
+  animation:letterIn 2s ease forwards;
+  animation-delay:2.8s;
+  pointer-events:auto;
 }
 
 @keyframes letterIn{
-  to{opacity:.9;transform:translateY(0)}
+  to{opacity:.88}
 }
 
-.letter::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(
-    ellipse at center,
-    rgba(255,255,255,.22) 0%,
-    rgba(255,255,255,.08) 45%,
-    rgba(0,0,0,.12) 100%
-  );
-  pointer-events:none;
-}
-
-/* ---------------- TEXT ---------------- */
 .title{
   font-family:'Cinzel Decorative',serif;
-  font-size:28px;
+  font-size:30px;
   letter-spacing:.18em;
-  opacity:.9;
-  margin-top:30px;   /* 👈 aşağı aldık */
-  margin-bottom:18px;
+  margin-bottom:14px;
+  margin-top:20px;
 }
 
-.title-sub{
-  display:block;
-  margin-top:22px;
-  font-size:26px;      /* 👈 büyüdü */
-  font-weight:700;     /* 👈 kalın */
-  letter-spacing:.14em;
-  opacity:.95;
-  text-shadow:0 2px 3px rgba(0,0,0,.25);
+.subtitle{
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:70px;
 }
 
 .letter p{
   font-size:17px;
   line-height:1.9;
-  margin:54px 0;
-  text-shadow:0 1px 1px rgba(0,0,0,.35);
+  margin-bottom:54px;
+  text-shadow:0 .6px 0 rgba(0,0,0,.35);
 }
 
 .divider{
   width:260px;
   height:2px;
   background:rgba(0,0,0,.45);
-  margin:90px auto 34px;
+  margin:80px auto 34px;
 }
 
-/* ---------------- SIGNATURE ---------------- */
 .signature{
   font-family:'Great Vibes',cursive;
   font-size:38px;
-  opacity:0;
-  animation:signIn 2s ease forwards;
-  animation-delay:5.2s;
 }
 
-@keyframes signIn{
-  to{opacity:1}
-}
-
-/* ---------------- BUTTON ---------------- */
-.show-btn{
-  margin-top:40px;
+.button{
+  margin-top:50px;
   padding:14px 28px;
   border:1px solid rgba(0,0,0,.4);
   background:transparent;
-  font-family:'Libre Baskerville',serif;
-  font-size:15px;
   cursor:pointer;
-  transition:.3s;
+  font-family:inherit;
 }
 
-.show-btn:hover{
-  background:rgba(0,0,0,.08);
+/* ---------- HIDE LETTER ---------- */
+.hide-letter{
+  animation:letterOut 1.4s ease forwards;
 }
 
-/* ---------------- MODAL ---------------- */
+@keyframes letterOut{
+  to{opacity:0;transform:scale(.96)}
+}
+
+/* ---------- MODAL ---------- */
 .modal{
   position:fixed;
   inset:0;
@@ -163,13 +141,13 @@ body{
   display:none;
   justify-content:center;
   align-items:center;
-  z-index:999;
+  z-index:20;
 }
 
 .modal img{
   max-width:90%;
   max-height:90%;
-  animation:fadeIn .4s ease;
+  animation:fadeIn .5s ease;
 }
 
 @keyframes fadeIn{
@@ -177,54 +155,52 @@ body{
   to{opacity:1}
 }
 
-.modal .nav{
+.arrow{
   position:absolute;
   top:50%;
   font-size:40px;
-  color:#fff;
+  color:white;
   cursor:pointer;
   user-select:none;
 }
 
-.modal .prev{left:40px}
-.modal .next{right:40px}
+.arrow.left{left:30px}
+.arrow.right{right:30px}
 
-/* ---------------- MOBILE ---------------- */
+/* ---------- MOBILE ---------- */
 @media(max-width:900px){
-  .photos-grid{
-    grid-template-columns:repeat(2,1fr);
-    padding:30px;
+  .gallery{
+    grid-template-columns:repeat(3,1fr);
+    padding:24px;
   }
-  .letter{
-    padding:90px 36px 130px;
-  }
+  body{overflow-y:auto}
 }
 </style>
 </head>
 
 <body>
 
-<div class="photos-grid" id="gallery">
-  <!-- 24 FOTO -->
-  <!-- 1.jpg – 24.jpg -->
+<div class="gallery">
+  <!-- 1 to 24 -->
   <script>
     for(let i=1;i<=24;i++){
-      document.write(`<img src="${i}.jpg" onclick="openModal(${i-1})">`)
+      document.write(`<img src="${i}.jpg" style="--i:${i}">`)
     }
   </script>
 </div>
 
 <div class="wrapper">
   <div class="letter" id="letter">
-    <div class="title">
-      A Timeless Letter Till Eternity
-      <span class="title-sub">For My Butterfly ⋆.°🦋༘⋆</span>
-    </div>
+    <div class="title">A TIMELESS LETTER TILL ETERNITY</div>
+    <div class="subtitle">FOR MY BUTTERFLY ⋆.°🦋༘⋆</div>
 
-    <p>If you are reading this,<br>it means you found that little drawer.</p>
+    <p>If you are reading this,<br>
+    it means you found that little drawer.</p>
+
     <p>This page was not written in a hurry;<br>
     it was written slowly, thoughtfully,<br>
     and only for you.</p>
+
     <p>Life moves fast sometimes.<br>
     I wanted this letter to be a small pause,<br>
     a quiet place to breathe.</p>
@@ -232,46 +208,45 @@ body{
     <div class="divider"></div>
     <div class="signature">Ali Yağız İyilikci</div>
 
-    <button class="show-btn" onclick="hideLetter()">
-      Do you want to see all our adventures?
-    </button>
+    <button class="button" onclick="closeLetter()">Do you want to see all our adventures?</button>
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
-  <div class="nav prev" onclick="prevImg()">‹</div>
+  <div class="arrow left" onclick="nav(-1)">‹</div>
   <img id="modalImg">
-  <div class="nav next" onclick="nextImg()">›</div>
+  <div class="arrow right" onclick="nav(1)">›</div>
 </div>
 
 <script>
-let current=0;
-const modal=document.getElementById("modal");
-const modalImg=document.getElementById("modalImg");
+let imgs=[...document.querySelectorAll('.gallery img')]
+let modal=document.getElementById('modal')
+let modalImg=document.getElementById('modalImg')
+let index=0
 
-function openModal(i){
-  current=i;
-  modal.style.display="flex";
-  modalImg.src=`${i+1}.jpg`;
+imgs.forEach((img,i)=>{
+  img.onclick=()=>{index=i;open()}
+})
+
+function open(){
+  modal.style.display='flex'
+  modalImg.src=imgs[index].src
 }
 
-function closeModal(){modal.style.display="none"}
-
-function nextImg(){
-  current=(current+1)%24;
-  modalImg.src=`${current+1}.jpg`;
+function nav(d){
+  index=(index+d+imgs.length)%imgs.length
+  modalImg.src=imgs[index].src
 }
 
-function prevImg(){
-  current=(current+23)%24;
-  modalImg.src=`${current+1}.jpg`;
+modal.onclick=e=>{
+  if(e.target===modal) modal.style.display='none'
 }
 
-modal.onclick=e=>{if(e.target===modal)closeModal()}
-
-function hideLetter(){
-  document.getElementById("letter").style.display="none";
+function closeLetter(){
+  document.getElementById('letter').classList.add('hide-letter')
+  setTimeout(()=>{
+    document.querySelector('.wrapper').style.display='none'
+  },1400)
 }
 </script>
 
