@@ -17,7 +17,7 @@ body{
   margin:0;
   font-family:'Libre Baskerville',serif;
   background:#e8e4dc;
-  overflow-x:hidden;
+  overflow:hidden; /* 🔒 MASAÜSTÜ SCROLL KİLİTLİ */
 }
 
 /* ---------- BACKGROUND GRID ---------- */
@@ -28,7 +28,7 @@ body{
   padding:60px;
   max-width:1600px;
   margin:auto;
-  pointer-events:none; /* 🔒 kilitli */
+  pointer-events:none;
 }
 
 .gallery img{
@@ -56,12 +56,13 @@ body{
   justify-content:center;
   align-items:center;
   z-index:10;
-  pointer-events:auto;
 }
 
 /* ---------- LETTER ---------- */
 .letter{
   width:min(780px,92%);
+  max-height:90vh;
+  overflow-y:auto;              /* 🔑 SCROLL ARTIK MEKTUBUN İÇİNDE */
   padding:120px 90px 140px;
   background:url("grunge-background.jpg") center/cover no-repeat;
   text-align:center;
@@ -147,7 +148,7 @@ body{
 .lightbox img{
   max-width:90%;
   max-height:90%;
-  transition:opacity .35s ease;
+  transition:opacity .55s cubic-bezier(.4,0,.2,1); /* ✨ DAHA AKICI */
 }
 
 .arrow{
@@ -164,6 +165,10 @@ body{
 
 /* ---------- MOBILE ---------- */
 @media(max-width:900px){
+  body{
+    overflow:auto; /* 📱 mobil serbest */
+  }
+
   .gallery{
     grid-template-columns:repeat(3,1fr);
     padding:24px;
@@ -263,7 +268,7 @@ function show(){
   setTimeout(()=>{
     lightImg.src=imgs[index].src;
     lightImg.onload=()=>lightImg.style.opacity=1;
-  },120);
+  },180);
 }
 
 prev.onclick=e=>{e.stopPropagation();nav(-1)}
