@@ -175,6 +175,27 @@ body{
   }
   body{overflow-y:auto}
 }
+  /* ---------- MOBILE SCROLL FIX ---------- */
+@media (max-width: 768px) {
+
+  .wrapper {
+    position: absolute;
+    inset: 0;
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 40px 0;
+  }
+
+  .letter {
+    max-height: none;
+    overflow-y: auto;
+    padding-bottom: 120px;
+  }
+
+  body {
+    overflow-y: auto;
+  }
+}
 </style>
 </head>
 
