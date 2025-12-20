@@ -44,7 +44,7 @@ body{
   transition:transform .3s ease;
 }
 
-/* 💖 KALP CURSOR – SADECE MASAÜSTÜ */
+/* 💖 KALP CURSOR */
 @media (hover:hover) {
   .gallery.active img{
     cursor:url("data:image/svg+xml;utf8,\
@@ -94,7 +94,6 @@ body{
   animation-delay:3.2s;
 }
 
-/* scrollbar gizli */
 .letter::-webkit-scrollbar{display:none}
 .letter{scrollbar-width:none}
 
@@ -148,21 +147,29 @@ body{
   cursor:pointer;
 }
 
-/* ---------- LETTER FADE OUT (DISSOLVE) ---------- */
+/* ---------- LETTER DISSOLVE OUT (UZUN + PARÇALI) ---------- */
 .hide{
-  animation:letterOut 1.6s ease forwards;
+  animation:letterOut 2.6s cubic-bezier(.4,0,.2,1) forwards;
 }
 
 @keyframes letterOut{
   0%{
     opacity:.88;
     transform:scale(1);
-    filter:blur(0);
+    filter:blur(0) brightness(1);
+  }
+  40%{
+    opacity:.6;
+    filter:blur(2px) brightness(.97);
+  }
+  70%{
+    opacity:.3;
+    filter:blur(5px) brightness(.94);
   }
   100%{
     opacity:0;
-    transform:scale(.96);
-    filter:blur(6px);
+    transform:scale(.94);
+    filter:blur(10px) brightness(.9);
   }
 }
 
@@ -275,13 +282,12 @@ const wrapper=document.getElementById("wrapper");
 btn.onclick=()=>{
   letter.classList.add("hide");
 
-  /* ⏳ animasyonun bitmesini BEKLİYORUZ */
   setTimeout(()=>{
     wrapper.style.display="none";
     gallery.classList.add("active");
     gallery.style.pointerEvents="auto";
     active=true;
-  },1600);
+  },2600);
 };
 
 /* ---------- LIGHTBOX ---------- */
@@ -320,7 +326,6 @@ lightbox.onclick=e=>{
   if(e.target===lightbox) lightbox.style.display="none";
 };
 
-/* swipe */
 lightbox.addEventListener("touchstart",e=>{
   startX=e.touches[0].clientX;
 });
