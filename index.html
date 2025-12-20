@@ -10,11 +10,7 @@
 <style>
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color: transparent; /* ❌ mavi dikdörtgen yok */
-}
-
-*:focus{
-  outline:none;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
@@ -24,7 +20,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ---------- PHOTO GRID ---------- */
+/* ---------- BACKGROUND GRID ---------- */
 .gallery{
   display:grid;
   grid-template-columns:repeat(6,1fr);
@@ -32,6 +28,7 @@ body{
   padding:60px;
   max-width:1600px;
   margin:auto;
+  pointer-events:none; /* 🔒 kilitli */
 }
 
 .gallery img{
@@ -42,21 +39,16 @@ body{
   background:#f4f1ea;
   padding:12px;
   box-shadow:0 14px 35px rgba(0,0,0,.25);
-  cursor:pointer;
   opacity:0;
-  animation:photoIn 1.2s ease forwards;
-}
-
-.gallery img:focus{
-  outline:none;
+  animation:photoIn 1s ease forwards;
 }
 
 @keyframes photoIn{
-  from{opacity:0;transform:scale(.97)}
+  from{opacity:0;transform:scale(.96)}
   to{opacity:1;transform:scale(1)}
 }
 
-/* ---------- LETTER ---------- */
+/* ---------- LETTER WRAPPER ---------- */
 .wrapper{
   position:fixed;
   inset:0;
@@ -64,30 +56,30 @@ body{
   justify-content:center;
   align-items:center;
   z-index:10;
-  pointer-events:none;
+  pointer-events:auto;
 }
 
+/* ---------- LETTER ---------- */
 .letter{
   width:min(780px,92%);
   padding:120px 90px 140px;
   background:url("grunge-background.jpg") center/cover no-repeat;
   text-align:center;
   color:#2a241d;
-  box-shadow:
-    0 40px 90px rgba(0,0,0,.35),
-    inset 0 0 60px rgba(0,0,0,.15);
+  box-shadow:0 40px 90px rgba(0,0,0,.35),
+             inset 0 0 60px rgba(0,0,0,.15);
   clip-path:polygon(
     2% 0%,98% 1%,100% 5%,99% 95%,
     96% 100%,4% 99%,0% 96%,1% 4%
   );
   opacity:0;
-  animation:letterIn 2.4s ease forwards;
-  animation-delay:3s;
-  pointer-events:auto;
+  transform:translateY(40px);
+  animation:letterIn 2.2s ease forwards;
+  animation-delay:3.2s;
 }
 
 @keyframes letterIn{
-  to{opacity:.88}
+  to{opacity:.88;transform:none}
 }
 
 /* ---------- TEXT ---------- */
@@ -95,8 +87,8 @@ body{
   font-family:'Cinzel Decorative',serif;
   font-size:30px;
   letter-spacing:.18em;
-  margin-top:60px;   /* 👈 BAŞLIK NET ŞEKİLDE AŞAĞIDA */
-  margin-bottom:18px;
+  margin-top:60px;
+  margin-bottom:12px;
 }
 
 .subtitle{
@@ -109,7 +101,6 @@ body{
   font-size:17px;
   line-height:1.9;
   margin-bottom:54px;
-  text-shadow:0 .6px 0 rgba(0,0,0,.35);
 }
 
 .divider{
@@ -131,15 +122,10 @@ body{
   border:1px solid rgba(0,0,0,.4);
   background:transparent;
   cursor:pointer;
-  font-family:inherit;
-}
-
-.button:focus{
-  outline:none;
 }
 
 /* ---------- HIDE LETTER ---------- */
-.hide-letter{
+.hide{
   animation:letterOut 1.4s ease forwards;
 }
 
@@ -147,39 +133,30 @@ body{
   to{opacity:0;transform:scale(.96)}
 }
 
-/* ---------- MODAL ---------- */
-.modal{
+/* ---------- LIGHTBOX ---------- */
+.lightbox{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.92);
+  background:rgba(0,0,0,.9);
   display:none;
   justify-content:center;
   align-items:center;
   z-index:20;
 }
 
-.modal img{
+.lightbox img{
   max-width:90%;
   max-height:90%;
-  animation:fadeIn .5s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
+  transition:opacity .35s ease;
 }
 
 .arrow{
   position:absolute;
   top:50%;
-  font-size:40px;
+  font-size:42px;
   color:white;
   cursor:pointer;
   user-select:none;
-}
-
-.arrow:focus{
-  outline:none;
 }
 
 .arrow.left{left:30px}
@@ -193,9 +170,8 @@ body{
   }
 
   .wrapper{
-    position:absolute;
     align-items:flex-start;
-    padding:40px 0;
+    padding:30px 0;
   }
 
   .letter{
@@ -205,11 +181,7 @@ body{
   }
 
   .arrow{
-    display:none; /* ❌ mobilde ok YOK */
-  }
-
-  body{
-    overflow-y:auto;
+    display:none;
   }
 }
 </style>
@@ -217,15 +189,9 @@ body{
 
 <body>
 
-<div class="gallery">
-  <script>
-    for(let i=1;i<=24;i++){
-      document.write(`<img src="${i}.jpg">`)
-    }
-  </script>
-</div>
+<div class="gallery" id="gallery"></div>
 
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
   <div class="letter" id="letter">
     <div class="title">A TIMELESS LETTER TILL ETERNITY</div>
     <div class="subtitle">FOR MY BUTTERFLY ⋆.°🦋༘⋆</div>
@@ -241,46 +207,85 @@ body{
     <div class="divider"></div>
     <div class="signature">Ali Yağız İyilikci</div>
 
-    <button class="button" onclick="closeLetter()">Do you want to see all our adventures?</button>
+    <button class="button" id="btn">Do you want to see all our adventures?</button>
   </div>
 </div>
 
-<div class="modal" id="modal">
-  <div class="arrow left" onclick="nav(-1)">‹</div>
-  <img id="modalImg">
-  <div class="arrow right" onclick="nav(1)">›</div>
+<div class="lightbox" id="lightbox">
+  <div class="arrow left" id="prev">‹</div>
+  <img id="lightImg">
+  <div class="arrow right" id="next">›</div>
 </div>
 
 <script>
-let imgs=[...document.querySelectorAll('.gallery img')]
-let modal=document.getElementById('modal')
-let modalImg=document.getElementById('modalImg')
-let index=0
+const gallery=document.getElementById("gallery");
+const imgs=[];
+for(let i=1;i<=24;i++){
+  const img=document.createElement("img");
+  img.src=`${i}.jpg`;
+  img.style.animationDelay=`${i*0.12}s`;
+  gallery.appendChild(img);
+  imgs.push(img);
+}
+
+let active=false;
+const btn=document.getElementById("btn");
+const letter=document.getElementById("letter");
+const wrapper=document.getElementById("wrapper");
+
+btn.onclick=()=>{
+  letter.classList.add("hide");
+  setTimeout(()=>{
+    wrapper.style.display="none";
+    gallery.style.pointerEvents="auto";
+    active=true;
+  },1400);
+};
+
+/* ---------- LIGHTBOX ---------- */
+const lightbox=document.getElementById("lightbox");
+const lightImg=document.getElementById("lightImg");
+const prev=document.getElementById("prev");
+const next=document.getElementById("next");
+let index=0,startX=0;
 
 imgs.forEach((img,i)=>{
-  img.onclick=()=>{index=i;open()}
-})
+  img.onclick=()=>{
+    if(!active) return;
+    index=i;
+    show();
+  };
+});
 
-function open(){
-  modal.style.display='flex'
-  modalImg.src=imgs[index].src
+function show(){
+  lightImg.style.opacity=0;
+  lightbox.style.display="flex";
+  setTimeout(()=>{
+    lightImg.src=imgs[index].src;
+    lightImg.onload=()=>lightImg.style.opacity=1;
+  },120);
 }
+
+prev.onclick=e=>{e.stopPropagation();nav(-1)}
+next.onclick=e=>{e.stopPropagation();nav(1)}
 
 function nav(d){
-  index=(index+d+imgs.length)%imgs.length
-  modalImg.src=imgs[index].src
+  index=(index+d+imgs.length)%imgs.length;
+  show();
 }
 
-modal.onclick=e=>{
-  if(e.target===modal) modal.style.display='none'
-}
+lightbox.onclick=e=>{
+  if(e.target===lightbox) lightbox.style.display="none";
+};
 
-function closeLetter(){
-  document.getElementById("letter").classList.add("hide-letter")
-  setTimeout(()=>{
-    document.querySelector(".wrapper").style.display="none"
-  },1400)
-}
+/* swipe */
+lightbox.addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
+});
+lightbox.addEventListener("touchend",e=>{
+  const diff=startX-e.changedTouches[0].clientX;
+  if(Math.abs(diff)>50) nav(diff>0?1:-1);
+});
 </script>
 
 </body>
