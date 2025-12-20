@@ -44,8 +44,14 @@ body{
   transition:transform .3s ease;
 }
 
-.gallery.active img{
-  cursor:zoom-in;
+/* 💖 KALP CURSOR – SADECE MASAÜSTÜ */
+@media (hover:hover) {
+  .gallery.active img{
+    cursor:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'>\
+<text y='18' font-size='18'>❤️</text>\
+</svg>") 12 12, auto;
+  }
 }
 
 .gallery.active img:hover{
@@ -88,7 +94,7 @@ body{
   animation-delay:3.2s;
 }
 
-/* 🔑 scrollbar tamamen gizli ama scroll çalışır */
+/* scrollbar gizli */
 .letter::-webkit-scrollbar{display:none}
 .letter{scrollbar-width:none}
 
@@ -142,13 +148,22 @@ body{
   cursor:pointer;
 }
 
-/* ---------- HIDE LETTER ---------- */
+/* ---------- LETTER FADE OUT (DISSOLVE) ---------- */
 .hide{
-  animation:letterOut 1.4s ease forwards;
+  animation:letterOut 1.6s ease forwards;
 }
 
 @keyframes letterOut{
-  to{opacity:0;transform:scale(.96)}
+  0%{
+    opacity:.88;
+    transform:scale(1);
+    filter:blur(0);
+  }
+  100%{
+    opacity:0;
+    transform:scale(.96);
+    filter:blur(6px);
+  }
 }
 
 /* ---------- LIGHTBOX ---------- */
@@ -200,7 +215,6 @@ body{
 
   .arrow{display:none}
 
-  /* 🦋 semboller alt satıra iner */
   .subtitle-symbols{
     display:block;
     margin-top:6px;
@@ -260,12 +274,14 @@ const wrapper=document.getElementById("wrapper");
 
 btn.onclick=()=>{
   letter.classList.add("hide");
+
+  /* ⏳ animasyonun bitmesini BEKLİYORUZ */
   setTimeout(()=>{
     wrapper.style.display="none";
     gallery.classList.add("active");
     gallery.style.pointerEvents="auto";
     active=true;
-  },1400);
+  },1600);
 };
 
 /* ---------- LIGHTBOX ---------- */
